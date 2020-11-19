@@ -28,12 +28,9 @@ namespace QuanLyHocSinh
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            string searchQuery = "SELECT * FROM MONHOC WHERE IDMonHoc = @maMH";
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maMH", txtMaMH.Text));
-            SqlDataReader obj = dataProvider.executeQuerry(searchQuery, sqlParams);
+            bool check = data.search(txtMaMH.Text);
 
-            if (obj.HasRows)
+            if (check)
             {
                 MessageBox.Show("Mã môn học đã tồn tại!");
             }
@@ -45,7 +42,7 @@ namespace QuanLyHocSinh
                 this.Close();
             }
 
-            dataProvider.disconnect();
+            //dataProvider.disconnect();
         }
     }
 }

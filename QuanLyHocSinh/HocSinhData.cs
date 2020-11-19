@@ -17,23 +17,65 @@ namespace QuanLyHocSinh
             dataProvider.connect();
         }
 
-        //public void insert(string maMH, string tenMH)
-        //{
-        //    string insertCommand = "INSERT INTO MONHOC VALUES('" + maMH + "', '" + tenMH + "')";
-        //    dataProvider.executeNonQuery(insertCommand);
-        //}
+        public void insert(string maMH, string tenMH)
+        {
+            dataProvider.open();
+            string insertCommand = "INSERT INTO MONHOC VALUES(@maMH, @tenMH)";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@maMH", maMH));
+            sqlParams.Add(new SqlParameter("@tenMH", tenMH));
+            dataProvider.executeNonQuery(insertCommand, sqlParams);
+            dataProvider.disconnect();
+        }
 
-        //public void update(string maMH, string tenMH)
-        //{
-        //    string updateCommand = "UPDATE MONHOC SET TenMH = '" + tenMH + "' WHERE IDMonHoc = '" + maMH + "'";
-        //    dataProvider.executeNonQuery(updateCommand);
-        //}
+        public void update(string maHS, string stenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
+        {
+            try
+            {
+                dataProvider.open();
+                string updateCommand = "UPDATE HOSOHOCSINH SET HoTen = @tenHS Email = @email GioiTinh = @gioiTinh DiaChi = @diaChi WHERE MaHS = @maHS; " + 
+                                       "UPDATE TONGKETLOP SET TenLop = @lop WHERE MaHS = @maHS2;";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maHS", maHS));
+                sqlParams.Add(new SqlParameter("@tenHS", tenHS));
+                sqlParams.Add(new SqlParameter("@email", email));
+                sqlParams.Add(new SqlParameter("@gioiTinh", (gioiTinh == "Nam") ? true : false));
+                sqlParams.Add(new SqlParameter("@diaChi", diaChi));
+                sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                sqlParams.Add(new SqlParameter("@lop", lop));
+                dataProvider.executeNonQuery(updateCommand, sqlParams);
+            }
+            catch (Exception)
+            {
+                //return;
+            }
+            finally
+            {
+                dataProvider.disconnect();
+            }
+        }
 
-        //public void delete(string maMH)
-        //{
-        //    string deleteCommand = "DELETE FROM MONHOC WHERE IDMonHoc = '" + maMH + "'";
-        //    dataProvider.executeNonQuery(deleteCommand);
-        //}
+        public void delete(string maHS)
+        {
+            try
+            {
+                dataProvider.open();
+                string deleteCommand = "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS " +
+                                       "DELETE FROM TONGKETLOP WHERE MaHS = @maHS2";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maHS", maHS));
+                sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                dataProvider.executeNonQuery(deleteCommand, sqlParams);          
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            finally
+            {
+                dataProvider.disconnect();
+            }
+        }
 
         public DataTable AllClass()
         {    

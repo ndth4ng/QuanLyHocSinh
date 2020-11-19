@@ -28,12 +28,9 @@ namespace QuanLyHocSinh
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            string searchQuery = "SELECT * FROM LOP WHERE IDLop = @maLop";
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maLop", txtMaLop.Text));
-            SqlDataReader obj = dataProvider.executeQuerry(searchQuery, sqlParams);           
+            bool check = data.search(txtMaLop.Text);
 
-            if (obj.HasRows)
+            if (check)
             {
                 MessageBox.Show("Mã lớp đã tồn tại!");
             }
@@ -45,7 +42,6 @@ namespace QuanLyHocSinh
                 this.Close();
             }
 
-            dataProvider.disconnect();
         }
     }
 }

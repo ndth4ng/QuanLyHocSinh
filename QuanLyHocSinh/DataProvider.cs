@@ -40,9 +40,13 @@ namespace QuanLyHocSinh
             connection.Close();
         }
 
-        public SqlDataReader executeQuerry(string sqlString, List<SqlParameter> sqlParams)
+        public void open()
         {
             connection.Open();
+        }
+        public SqlDataReader executeQuerry(string sqlString, List<SqlParameter> sqlParams)
+        {
+            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             foreach (SqlParameter param in sqlParams)
             {
@@ -61,19 +65,19 @@ namespace QuanLyHocSinh
 
         public void executeNonQuery(string sqlString, List<SqlParameter> sqlParams)
         {
-            connection.Open();
+            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             foreach(SqlParameter param in sqlParams) 
             {
                 command.Parameters.Add(param);
             }
             command.ExecuteNonQuery();
-            connection.Close();
+            //connection.Close();
         }
 
         public object executeScalar(string sqlString)
         {
-            connection.Open();
+            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             return command.ExecuteScalar();
         }

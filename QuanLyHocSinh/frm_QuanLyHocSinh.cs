@@ -57,22 +57,22 @@ namespace QuanLyHocSinh
             }
             if (cell != null)
             {
-                DataGridViewRow row = cell.OwningRow;
-                txtMaHS.Text = row.Cells["Mã học sinh"].Value.ToString().Trim();
-                txtTenHS.Text = row.Cells["Họ tên"].Value.ToString().Trim();
-                if (row.Cells["Giới tính"].Value.ToString() == "Nam")
-                    cbGioiTinh.SelectedItem = "Nam";
-                else
-                    cbGioiTinh.SelectedItem = "Nữ";               
-                txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
-                txtDiaChi.Text = row.Cells["Địa chỉ"].Value.ToString().Trim();
-                try
-                {
+                try { 
+                    DataGridViewRow row = cell.OwningRow;
+                    txtMaHS.Text = row.Cells["Mã học sinh"].Value.ToString().Trim();
+                    txtTenHS.Text = row.Cells["Họ tên"].Value.ToString().Trim();
+                    if (row.Cells["Giới tính"].Value.ToString() == "Nam")
+                        cbGioiTinh.SelectedItem = "Nam";
+                    else
+                        cbGioiTinh.SelectedItem = "Nữ";               
+                    txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
+                    txtDiaChi.Text = row.Cells["Địa chỉ"].Value.ToString().Trim();
                     dateNgaySinh.Value = Convert.ToDateTime(row.Cells["Ngày sinh"].Value.ToString());
+                    cbLop.SelectedItem = row.Cells["Lớp"].Value.ToString();
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("?");
+                    return;
                 }
                 //MessageBox.Show(dateNgaySinh.Value.ToString());
                 //MessageBox.Show(cbGioiTinh.SelectedItem.ToString() == "Nam" ? "true" : "false");
@@ -136,6 +136,19 @@ namespace QuanLyHocSinh
             frm_QuanLyHocSinh_Them add = new frm_QuanLyHocSinh_Them();
             add.ShowDialog();
             this.Show();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            data.delete(txtMaHS.Text);
+            MessageBox.Show("Xóa lớp thành công!");
+            LoadData();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            data.update(txtMaHS.Text, txtTenHS.Text, txtEmail.Text, cbGioiTinh.Text, dateNgaySinh.Value.Date, txtDiaChi.Text, cbLop.Text);
+            LoadData();
         }
     }
 }
