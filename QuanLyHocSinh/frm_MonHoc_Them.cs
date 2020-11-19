@@ -41,8 +41,6 @@ namespace QuanLyHocSinh
                 this.Hide();
                 this.Close();
             }
-
-            //dataProvider.disconnect();
         }
     }
 }

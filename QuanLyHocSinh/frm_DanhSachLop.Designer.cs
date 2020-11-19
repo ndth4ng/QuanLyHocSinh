@@ -48,11 +48,13 @@ namespace QuanLyHocSinh
             // 
             // cbLop
             // 
+            this.cbLop.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLop.FormattingEnabled = true;
             this.cbLop.Location = new System.Drawing.Point(317, 9);
             this.cbLop.Name = "cbLop";
             this.cbLop.Size = new System.Drawing.Size(121, 24);
             this.cbLop.TabIndex = 1;
+            this.cbLop.SelectedIndexChanged += new System.EventHandler(this.cbLop_SelectedIndexChanged);
             // 
             // lbSiSoLop
             // 
@@ -96,6 +98,7 @@ namespace QuanLyHocSinh
             this.Name = "frm_DanhSachLop";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_DanhSachLop";
+            this.Load += new System.EventHandler(this.frm_DanhSachLop_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachLop)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

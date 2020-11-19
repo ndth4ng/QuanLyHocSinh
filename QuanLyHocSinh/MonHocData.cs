@@ -27,7 +27,7 @@ namespace QuanLyHocSinh
 
             if (obj.HasRows)
             {
-                dataProvider.disconnect();
+                //dataProvider.disconnect();
                 return true;
             }
             dataProvider.disconnect();

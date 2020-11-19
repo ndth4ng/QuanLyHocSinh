@@ -164,13 +164,14 @@ namespace QuanLyHocSinh
             // 
             // dateNgaySinh
             // 
-            this.dateNgaySinh.CustomFormat = "yyyy.MM.dd";
+            this.dateNgaySinh.CustomFormat = "";
+            this.dateNgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateNgaySinh.Location = new System.Drawing.Point(11, 197);
             this.dateNgaySinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateNgaySinh.Name = "dateNgaySinh";
             this.dateNgaySinh.Size = new System.Drawing.Size(304, 22);
             this.dateNgaySinh.TabIndex = 8;
-            this.dateNgaySinh.Value = new System.DateTime(2020, 11, 13, 23, 16, 28, 0);
+            this.dateNgaySinh.Value = new System.DateTime(2020, 11, 19, 0, 0, 0, 0);
             // 
             // txtDiaChi
             // 

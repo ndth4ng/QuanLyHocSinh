@@ -34,10 +34,9 @@ namespace QuanLyHocSinh
         void LoadData()
         {
             FillComboBox();
-            //dgvMonHoc.Columns[0].Name = "Mã môn học";
-            //dgvMonHoc.Columns[1].Name = "Tên môn học";
-            //string sqlString = "select IDMonHoc as 'Mã môn học' , TenMH as 'Tên môn học' from MONHOC";
-            dgvDanhSachHS.DataSource = data.GetStudent().Tables[0];
+            dgvDanhSachHS.DataSource = data.GetStudent().Tables[0];           
+            dgvDanhSachHS.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgvDanhSachHS.Columns[4] = DataGridViewAutoSizeColumnsMode.Fill;
         }
         void FillComboBox()
         {
@@ -64,11 +63,11 @@ namespace QuanLyHocSinh
                     if (row.Cells["Giới tính"].Value.ToString() == "Nam")
                         cbGioiTinh.SelectedItem = "Nam";
                     else
-                        cbGioiTinh.SelectedItem = "Nữ";               
+                        cbGioiTinh.SelectedItem = "Nữ";
+                    cbLop.SelectedValue = row.Cells["Lớp"].Value;
                     txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
                     txtDiaChi.Text = row.Cells["Địa chỉ"].Value.ToString().Trim();
-                    dateNgaySinh.Value = Convert.ToDateTime(row.Cells["Ngày sinh"].Value.ToString());
-                    cbLop.SelectedItem = row.Cells["Lớp"].Value.ToString();
+                    dateNgaySinh.Text = row.Cells["Ngày sinh"].Value.ToString();               
                 }
                 catch (Exception)
                 {
@@ -80,75 +79,52 @@ namespace QuanLyHocSinh
         }
 
         private void btnThem_Click(object sender, EventArgs e)
-        {
-            //string maLop = "";
-            //bool flag = false;
-            //SqlCommand command;
-            //using (SqlConnection con = new SqlConnection(ConnectionString.connectionString))
-            //{
-            //    con.Open();
-            //    using (command = new SqlCommand("SELECT * FROM HOSOHOCSINH WHERE MaHS = '" + txtMaHS.Text + "'", con))
-            //    {
-            //        SqlDataReader reader = command.ExecuteReader();
-            //        if (reader.HasRows)
-            //            flag = true;
-            //        reader.Close();
-
-            //        command = new SqlCommand("SELECT IDLop FROM LOP WHERE TenLop = '" + cbLop.SelectedItem.ToString() + "'", con);
-            //        using (reader = command.ExecuteReader())
-            //        {
-            //            while (reader.Read())
-            //                maLop = (reader["IDLop"].ToString());
-            //            MessageBox.Show(maLop);
-            //            reader.Close();
-            //        }
-            //    }
-            //    if (!flag)
-            //    {
-            //        //string date = dateNgaySinh.Value.ToString("yyyy-MM-dd");
-            //        string query = "INSERT INTO HOSOHOCSINH " +
-            //            "VALUES (@MaHS, @TenHS, @Email, @GioiTinh, @NgaySinh, @DiaChi);" + 
-            //            "INSERT INTO TONGKETLOP(MaHS, IDLop) VALUES(@MaHS2, @IDLop);";
-            //        //try
-            //        //{                       
-            //            command = new SqlCommand(query, con);
-            //        command.Parameters.AddWithValue("MaHS", txtMaHS.Text);
-            //        command.Parameters.AddWithValue("TenHS", txtTenHS.Text);
-            //        command.Parameters.AddWithValue("Email", txtEmail.Text);
-            //        command.Parameters.Add("@GioiTinh", SqlDbType.Bit).Value = cbGioiTinh.SelectedItem.ToString() == "Nam" ? true : false;
-            //        command.Parameters.Add("@NgaySinh", SqlDbType.Date).Value = dateNgaySinh.Value.Date;
-            //        command.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text);
-            //        command.Parameters.AddWithValue("@MaHS2", txtMaHS.Text);
-            //        command.Parameters.AddWithValue("@IDLop", maLop);
-
-            //        command.ExecuteNonQuery();
-            //        //}
-            //        //catch (Exception) { MessageBox.Show("Error"); }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Ma hoc sinh ton tai");
-            //    }
-            //    con.Close();
-            //    LoadData();
-            //}
-
+        {            
             frm_QuanLyHocSinh_Them add = new frm_QuanLyHocSinh_Them();
             add.ShowDialog();
             this.Show();
+            LoadData();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            data.delete(txtMaHS.Text);
-            MessageBox.Show("Xóa lớp thành công!");
-            LoadData();
+            bool check = true;
+            try
+            {
+                data.delete(txtMaHS.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                check = false;
+                
+            }
+            finally
+            {
+                LoadData();
+            }
+            if (check)
+                MessageBox.Show("Xóa học sinh thành công!");                   
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            data.update(txtMaHS.Text, txtTenHS.Text, txtEmail.Text, cbGioiTinh.Text, dateNgaySinh.Value.Date, txtDiaChi.Text, cbLop.Text);
-            LoadData();
+            bool check = true;
+            try
+            {
+                data.update(txtMaHS.Text, txtTenHS.Text, txtEmail.Text, cbGioiTinh.SelectedItem.ToString(), dateNgaySinh.Value.Date, txtDiaChi.Text, cbLop.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                check = false;
+            }
+            finally
+            {
+                LoadData();
+            }
+            if (check)
+                MessageBox.Show("Cập nhật thông tin học sinh thành công!");
         }
     }
 }

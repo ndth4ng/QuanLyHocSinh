@@ -44,9 +44,9 @@ namespace QuanLyHocSinh
         {
             connection.Open();
         }
+
         public SqlDataReader executeQuerry(string sqlString, List<SqlParameter> sqlParams)
         {
-            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             foreach (SqlParameter param in sqlParams)
             {
@@ -65,29 +65,19 @@ namespace QuanLyHocSinh
 
         public void executeNonQuery(string sqlString, List<SqlParameter> sqlParams)
         {
-            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             foreach(SqlParameter param in sqlParams) 
             {
                 command.Parameters.Add(param);
             }
             command.ExecuteNonQuery();
-            //connection.Close();
         }
 
         public object executeScalar(string sqlString)
         {
-            //connection.Open();
             command = new SqlCommand(sqlString, connection);
             return command.ExecuteScalar();
-        }
-
-        //public object searchObject(string sqlString)
-        //{
-        //    this.connect();
-        //    command = new SqlCommand(sqlString, connection);
-        //    return command.ExecuteScalar();           
-        //}       
+        }    
 
         public DataSet GetData(string sqlString)
         {

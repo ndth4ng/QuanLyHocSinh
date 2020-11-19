@@ -17,29 +17,54 @@ namespace QuanLyHocSinh
             dataProvider.connect();
         }
 
-        public void insert(string maMH, string tenMH)
+        public bool search(string maHS)
         {
             dataProvider.open();
-            string insertCommand = "INSERT INTO MONHOC VALUES(@maMH, @tenMH)";
+            string searchQuery = "SELECT * FROM HOSOHOCSINH WHERE MaHS = @maHS";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maMH", maMH));
-            sqlParams.Add(new SqlParameter("@tenMH", tenMH));
+            sqlParams.Add(new SqlParameter("@maHS", maHS));
+            SqlDataReader obj = dataProvider.executeQuerry(searchQuery, sqlParams);
+
+            if (obj.HasRows)
+            {
+                //dataProvider.disconnect();
+                return true;
+            }
+            dataProvider.disconnect();
+            return false;
+        }
+
+        public void insert(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
+        {
+            dataProvider.open();
+            string insertCommand = "INSERT INTO HOSOHOCSINH VALUES (@maHS, @tenHS, @email, @gioiTinh, @ngaySinh, @diaChi); " +
+                                   "INSERT INTO TONGKETLOP(MaHS, IDLop) VALUES (@maHS2, (SELECT IDLop FROM LOP WHERE TenLop = @lop));";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@maHS", maHS));
+            sqlParams.Add(new SqlParameter("@tenHS", tenHS));
+            sqlParams.Add(new SqlParameter("@email", email));
+            sqlParams.Add(new SqlParameter("@gioiTinh", (gioiTinh == "Nam") ? true : false));
+            sqlParams.Add(new SqlParameter("@ngaySinh", ngaySinh.ToString("yyyy-MM-dd")));
+            sqlParams.Add(new SqlParameter("@diaChi", diaChi));
+            sqlParams.Add(new SqlParameter("@maHS2", maHS));
+            sqlParams.Add(new SqlParameter("@lop", lop));
             dataProvider.executeNonQuery(insertCommand, sqlParams);
             dataProvider.disconnect();
         }
 
-        public void update(string maHS, string stenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
+        public void update(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
         {
             try
             {
-                dataProvider.open();
-                string updateCommand = "UPDATE HOSOHOCSINH SET HoTen = @tenHS Email = @email GioiTinh = @gioiTinh DiaChi = @diaChi WHERE MaHS = @maHS; " + 
-                                       "UPDATE TONGKETLOP SET TenLop = @lop WHERE MaHS = @maHS2;";
+                dataProvider.open();                             
+                string updateCommand = "UPDATE TONGKETLOP SET IDLop = (SELECT IDLop FROM LOP WHERE TenLop = @lop) WHERE MaHS = @maHS2;" +
+                                       "UPDATE HOSOHOCSINH SET HoTen = @tenHS, Email = @email, GioiTinh = @gioiTinh, NgaySinh = @ngaySinh, DiaChi = @diaChi WHERE MaHS = @maHS; ";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
                 sqlParams.Add(new SqlParameter("@tenHS", tenHS));
                 sqlParams.Add(new SqlParameter("@email", email));
                 sqlParams.Add(new SqlParameter("@gioiTinh", (gioiTinh == "Nam") ? true : false));
+                sqlParams.Add(new SqlParameter("@ngaySinh", ngaySinh.ToString("yyyy-MM-dd")));
                 sqlParams.Add(new SqlParameter("@diaChi", diaChi));
                 sqlParams.Add(new SqlParameter("@maHS2", maHS));
                 sqlParams.Add(new SqlParameter("@lop", lop));
@@ -47,7 +72,7 @@ namespace QuanLyHocSinh
             }
             catch (Exception)
             {
-                //return;
+                throw new Exception("Lỗi");
             }
             finally
             {
@@ -60,8 +85,8 @@ namespace QuanLyHocSinh
             try
             {
                 dataProvider.open();
-                string deleteCommand = "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS " +
-                                       "DELETE FROM TONGKETLOP WHERE MaHS = @maHS2";
+                string deleteCommand = "DELETE FROM TONGKETLOP WHERE MaHS = @maHS " +
+                                       "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS2";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
                 sqlParams.Add(new SqlParameter("@maHS2", maHS));
@@ -69,7 +94,7 @@ namespace QuanLyHocSinh
             }
             catch (Exception)
             {
-                return;
+                throw new Exception("Không thể xóa học sinh này!"); 
             }
             finally
             {
@@ -86,10 +111,27 @@ namespace QuanLyHocSinh
 
         public DataSet GetStudent()
         {
-            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else 'Nữ' end as 'Giới tính', TenLop as 'Tên Lớp', NgaySinh as 'Ngày sinh', Email, DiaChi as 'Địa chỉ' " +
+            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', TenLop as 'Lớp', NgaySinh as 'Ngày sinh', Email, DiaChi as 'Địa chỉ' " +
                 "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
                 "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop";
             return dataProvider.GetData(sqlString);
         }
+
+        public DataSet GetStudentFromClass(string tenLop)
+        {
+            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ' " +
+               "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
+               "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop AND TenLop = '"+tenLop+"'";
+            return dataProvider.GetData(sqlString); 
+        }
+
+        public DataSet GetStudentFromClass()
+        {
+            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ' " +
+               "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
+               "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop";
+            return dataProvider.GetData(sqlString);
+        }
+
     }
 }
