@@ -55,8 +55,6 @@ namespace QuanLyHocSinh
             }
             else
             {
-                foreach (DataRow row in table.Rows)
-                    MessageBox.Show(row[0].ToString());
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass(cbLop.Text).Tables[0];
                 lbSiSoLop.Text = "Sỉ số: " + hs.Count(cbLop.Text).ToString();
             }

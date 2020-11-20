@@ -17,26 +17,137 @@ namespace QuanLyHocSinh
             dataProvider.connect();
         }
 
-        //public void AddClass(string tenLop, string tenMH, string hocKy)
-        //{
-        //    string sqlMH = "SELECT IDMonHoc FROM MONHOC";
-        //    DataTable monHoc = this.AllSubject();
-        //    foreach (DataRow dtRow in monHoc.Rows)
-        //    {
-        //        string sqlString = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES (CONCAT('BD',@tenLop,); ";
-        //        List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //        sqlParams.Add(new SqlParameter());
-        //        sqlParams.Add(new SqlParameter("@tenLop", tenLop));
-        //        sqlParams.Add(new SqlParameter("@tenMH", tenMH));
-        //        sqlParams.Add(new SqlParameter("@hocKy", hocKy));
-        //    }
-        //}
+        public bool search(string id)
+        {
+            dataProvider.open();
+            string searchQuery = "SELECT * FROM BANGDIEMMON WHERE IDBangDiemMon = @ID";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@ID", id));
+            SqlDataReader obj = dataProvider.executeQuerry(searchQuery, sqlParams);
 
-        //public DataTable AllSubject()
-        //{
-        //    string sqlString = "SELECT IDMonHoc FROM MONHOC";
-        //    DataTable dataTable = dataProvider.GetDataTable(sqlString);
-        //    return dataTable;
-        //}
+            if (obj.HasRows)
+            {
+                dataProvider.disconnect();
+                return true;
+            }
+            dataProvider.disconnect();
+            return false;
+        }
+
+        public void ThemLopHoc(string maLop) 
+        { 
+            string sqlQuery = "SELECT IDMonHoc FROM MONHOC";
+            DataTable monHoc = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in monHoc.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '1'), @maLop2, @monHoc2, @hocKy1)" +
+                        "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '2'), @maLop2, @monHoc2, @hocKy2)";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maLop", maLop));
+                    sqlParams.Add(new SqlParameter("@monHoc", row[0]));
+                    sqlParams.Add(new SqlParameter("@maLop2", maLop));
+                    sqlParams.Add(new SqlParameter("@monHoc2", row[0]));
+                    sqlParams.Add(new SqlParameter("@hocKy1", 1));
+                    sqlParams.Add(new SqlParameter("@hocKy2", 2));               
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
+        }
+        public void ThemMonHoc(string maMH) 
+        {
+            string sqlQuery = "SELECT IDLop FROM LOP";
+            DataTable lopHoc = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in lopHoc.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '1'), @maLop2, @monHoc2, @hocKy1)" +
+                        "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '2'), @maLop2, @monHoc2, @hocKy2)";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maLop", row[0]));
+                    sqlParams.Add(new SqlParameter("@monHoc", maMH));
+                    sqlParams.Add(new SqlParameter("@maLop2", row[0]));
+                    sqlParams.Add(new SqlParameter("@monHoc2", maMH));
+                    sqlParams.Add(new SqlParameter("@hocKy1", 1));
+                    sqlParams.Add(new SqlParameter("@hocKy2", 2));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception) 
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
+        }
+        public void ThemHocSinh() 
+        {
+            string sqlQuery = "SELECT MaHS, BD.IDLop, IDBangDiemMon FROM BANGDIEMMON BD, TONGKETLOP TK WHERE BD.IDLop = TK.IDLop;";
+            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in bangDiem.Rows)
+            {
+                string insertCommand = "INSERT INTO CTBANGDIEMMON(IDCTBangDiemMon, MaHS, IDBangDiemMon) VALUES (CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)),' ',''),5)), @maHS2, @maBD2)";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maHS", row[0]));
+                sqlParams.Add(new SqlParameter("@maHS2", row[0]));
+                sqlParams.Add(new SqlParameter("@maBD", row[2]));
+                sqlParams.Add(new SqlParameter("@maBD2", row[2]));
+                if (this.search(row[2].ToString().Trim()) == false)
+                {
+                    //try
+                    //{
+                        dataProvider.open();
+                        dataProvider.executeNonQuery(insertCommand, sqlParams);
+                    //}
+                    //catch (Exception) { }
+                    //finally
+                    //{
+                        dataProvider.disconnect();
+                    //}
+                }
+            }
+        }
+
+        public void ThemHocSinh(string maHS, string lop)
+        {
+            string sqlQuery = "SELECT IDLop, IDBangDiemMon FROM BANGDIEMMON WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "');";
+            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in bangDiem.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "INSERT INTO CTBANGDIEMMON(IDCTBangDiemMon, MaHS, IDBangDiemMon) VALUES (CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)),' ',''),5)), @maHS2, @maBD2)";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maHS", maHS));
+                    sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                    sqlParams.Add(new SqlParameter("@maBD", row[1]));
+                    sqlParams.Add(new SqlParameter("@maBD2", row[1]));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
+        }
     }
 }

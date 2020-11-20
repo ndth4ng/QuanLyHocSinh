@@ -11,6 +11,7 @@ namespace QuanLyHocSinh
     class HocSinhData
     {
         private DataProvider dataProvider = new DataProvider();
+        BangDiemData bangDiem = new BangDiemData();
 
         public HocSinhData()
         {
@@ -50,6 +51,8 @@ namespace QuanLyHocSinh
             sqlParams.Add(new SqlParameter("@lop", lop));
             dataProvider.executeNonQuery(insertCommand, sqlParams);
             dataProvider.disconnect();
+
+            bangDiem.ThemHocSinh(maHS, lop);
         }
 
         public void update(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
