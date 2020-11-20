@@ -73,10 +73,17 @@ namespace QuanLyHocSinh
             command.ExecuteNonQuery();
         }
 
-        public object executeScalar(string sqlString)
+        public object executeScalar(string sqlString, List<SqlParameter> sqlParams)
         {
+            connection.Open();
             command = new SqlCommand(sqlString, connection);
-            return command.ExecuteScalar();
+            foreach(SqlParameter param in sqlParams)
+            {
+                command.Parameters.Add(param);
+            }
+            object obj = command.ExecuteScalar();
+            connection.Close();
+            return obj;
         }    
 
         public DataSet GetData(string sqlString)
@@ -98,6 +105,8 @@ namespace QuanLyHocSinh
             connection.Close();
             return data;
         }
+
+
 
         //public SqlDataReader FillData(string sqlString)
         //{

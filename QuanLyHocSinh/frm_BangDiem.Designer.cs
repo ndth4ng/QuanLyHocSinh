@@ -44,77 +44,74 @@ namespace QuanLyHocSinh
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 11);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(13, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.Size = new System.Drawing.Size(32, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Lớp";
             // 
             // cbLop
             // 
             this.cbLop.FormattingEnabled = true;
-            this.cbLop.Location = new System.Drawing.Point(39, 11);
-            this.cbLop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbLop.Location = new System.Drawing.Point(52, 14);
+            this.cbLop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbLop.Name = "cbLop";
-            this.cbLop.Size = new System.Drawing.Size(92, 21);
+            this.cbLop.Size = new System.Drawing.Size(121, 24);
             this.cbLop.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(164, 11);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(219, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(62, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Môn học";
             // 
             // cbMonHoc
             // 
             this.cbMonHoc.FormattingEnabled = true;
-            this.cbMonHoc.Location = new System.Drawing.Point(210, 11);
-            this.cbMonHoc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbMonHoc.Location = new System.Drawing.Point(280, 14);
+            this.cbMonHoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbMonHoc.Name = "cbMonHoc";
-            this.cbMonHoc.Size = new System.Drawing.Size(92, 21);
+            this.cbMonHoc.Size = new System.Drawing.Size(121, 24);
             this.cbMonHoc.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(329, 11);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(439, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Học kỳ";
             // 
             // cbHocKy
             // 
             this.cbHocKy.FormattingEnabled = true;
-            this.cbHocKy.Location = new System.Drawing.Point(380, 8);
-            this.cbHocKy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbHocKy.Location = new System.Drawing.Point(507, 10);
+            this.cbHocKy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbHocKy.Name = "cbHocKy";
-            this.cbHocKy.Size = new System.Drawing.Size(92, 21);
+            this.cbHocKy.Size = new System.Drawing.Size(121, 24);
             this.cbHocKy.TabIndex = 1;
             // 
             // dgvBangDiem
             // 
             this.dgvBangDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBangDiem.Location = new System.Drawing.Point(12, 45);
-            this.dgvBangDiem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvBangDiem.Location = new System.Drawing.Point(16, 55);
+            this.dgvBangDiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvBangDiem.Name = "dgvBangDiem";
             this.dgvBangDiem.RowHeadersWidth = 51;
             this.dgvBangDiem.RowTemplate.Height = 24;
-            this.dgvBangDiem.Size = new System.Drawing.Size(713, 539);
+            this.dgvBangDiem.Size = new System.Drawing.Size(951, 663);
             this.dgvBangDiem.TabIndex = 2;
             // 
             // btnCapNhat
             // 
-            this.btnCapNhat.Location = new System.Drawing.Point(499, 11);
-            this.btnCapNhat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCapNhat.Location = new System.Drawing.Point(665, 14);
+            this.btnCapNhat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCapNhat.Name = "btnCapNhat";
-            this.btnCapNhat.Size = new System.Drawing.Size(56, 21);
+            this.btnCapNhat.Size = new System.Drawing.Size(75, 26);
             this.btnCapNhat.TabIndex = 3;
             this.btnCapNhat.Text = "Cập nhật";
             this.btnCapNhat.UseVisualStyleBackColor = true;
@@ -122,10 +119,10 @@ namespace QuanLyHocSinh
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(560, 10);
-            this.btnThoat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnThoat.Location = new System.Drawing.Point(761, 14);
+            this.btnThoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(56, 19);
+            this.btnThoat.Size = new System.Drawing.Size(75, 26);
             this.btnThoat.TabIndex = 3;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
@@ -133,9 +130,9 @@ namespace QuanLyHocSinh
             // 
             // frm_BangDiem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 593);
+            this.ClientSize = new System.Drawing.Size(979, 730);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnCapNhat);
             this.Controls.Add(this.dgvBangDiem);
@@ -145,7 +142,7 @@ namespace QuanLyHocSinh
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbLop);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frm_BangDiem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bảng điểm";

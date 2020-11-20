@@ -133,5 +133,15 @@ namespace QuanLyHocSinh
             return dataProvider.GetData(sqlString);
         }
 
+        public object Count(string tenLop)
+        {
+            string sqlString = "SELECT COUNT(MaHS) FROM TONGKETLOP WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = @tenLop);";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@tenLop", tenLop));
+            return dataProvider.executeScalar(sqlString, sqlParams);
+
+        }
+
+
     }
 }

@@ -47,10 +47,19 @@ namespace QuanLyHocSinh
 
         private void cbLop_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DataTable table = hs.AllClass();
             if (cbLop.Text == "Tất cả")
+            {
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass().Tables[0];
+                lbSiSoLop.Text = "Sỉ số: ";
+            }
             else
+            {
+                foreach (DataRow row in table.Rows)
+                    MessageBox.Show(row[0].ToString());
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass(cbLop.Text).Tables[0];
+                lbSiSoLop.Text = "Sỉ số: " + hs.Count(cbLop.Text).ToString();
+            }
         }
     }
 }

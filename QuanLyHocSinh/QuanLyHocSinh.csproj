@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BangDiemData.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="frm_BangDiem.cs">
       <SubType>Form</SubType>
