@@ -35,7 +35,7 @@ namespace QuanLyHocSinh
 
         private void bảngĐiểmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frm_BangDiem bangDiem = new frm_BangDiem();
+            frm_ChiTietBangDiem bangDiem = new frm_ChiTietBangDiem();
             this.Hide();
             bangDiem.ShowDialog();
             this.Show();

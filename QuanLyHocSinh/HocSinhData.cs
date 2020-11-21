@@ -57,12 +57,18 @@ namespace QuanLyHocSinh
 
         public void update(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
         {
-            try
-            {
-                dataProvider.open();                             
+            //try
+            //{
+                string sqlString = "SELECT IDLop FROM TONGKETLOP WHERE MaHS = @ma";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@ma", maHS));
+                object lopCu = dataProvider.executeScalar(sqlString, sqlParams);
+
+                dataProvider.open();  
+                
                 string updateCommand = "UPDATE TONGKETLOP SET IDLop = (SELECT IDLop FROM LOP WHERE TenLop = @lop) WHERE MaHS = @maHS2;" +
                                        "UPDATE HOSOHOCSINH SET HoTen = @tenHS, Email = @email, GioiTinh = @gioiTinh, NgaySinh = @ngaySinh, DiaChi = @diaChi WHERE MaHS = @maHS; ";
-                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
                 sqlParams.Add(new SqlParameter("@tenHS", tenHS));
                 sqlParams.Add(new SqlParameter("@email", email));
@@ -72,15 +78,17 @@ namespace QuanLyHocSinh
                 sqlParams.Add(new SqlParameter("@maHS2", maHS));
                 sqlParams.Add(new SqlParameter("@lop", lop));
                 dataProvider.executeNonQuery(updateCommand, sqlParams);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Lỗi");
-            }
-            finally
-            {
+
+                bangDiem.SuaHocSinh(maHS, lopCu.ToString(), lop);
+            ///}
+            //catch (Exception)
+            //{
+            //    throw new Exception("Lỗi");
+            //}
+            //finally
+            //{
                 dataProvider.disconnect();
-            }
+            //}
         }
 
         public void delete(string maHS)

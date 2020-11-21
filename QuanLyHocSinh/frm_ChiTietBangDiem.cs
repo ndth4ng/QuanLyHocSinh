@@ -26,25 +26,23 @@ namespace QuanLyHocSinh
         public void LoadData()
         {
             FillComboBox();
-            dgvChiTietBangDiem.DataSource = data.GetScoreAll().Tables[0];
-            cbMonHoc.Text = "Tất cả";
-            cbMaHS.Text = "Tất cả";
-            cbHocKy.Text = "Tất cả";
+            //dgvChiTietBangDiem.DataSource = data.GetScoreAll().Tables[0];
+            dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            cbMonHoc.SelectedIndex = -1;
+            cbLop.SelectedIndex = -1;
         }
 
         void FillComboBox()
         {
             DataTable table = data.AllSubject();
-            table.Rows.Add("Tất cả");
             cbMonHoc.DataSource = table;
             cbMonHoc.DisplayMember = "TenMH";
             cbMonHoc.ValueMember = "TenMH";           
 
-            table = data.AllStudent();
-            table.Rows.Add("Tất cả");
-            cbMaHS.DataSource = table;
-            cbMaHS.DisplayMember = "MaHS";
-            cbMaHS.ValueMember = "MaHS";
+            table = data.AllClass();
+            cbLop.DataSource = table;
+            cbLop.DisplayMember = "TenLop";
+            cbLop.ValueMember = "TenLop";
         }
 
         private void frm_ChiTietBangDiem_Load(object sender, EventArgs e)
@@ -54,23 +52,22 @@ namespace QuanLyHocSinh
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (cbHocKy.Text != "Tất cả" && cbMonHoc.Text != "Tất cả" && cbMaHS.Text != "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbMaHS.Text).Tables[0];
-            else if (cbHocKy.Text == "Tất cả" && cbMonHoc.Text != "Tất cả" && cbMaHS.Text != "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore2(cbMonHoc.Text, cbMaHS.Text).Tables[0];
-            else if (cbHocKy.Text != "Tất cả" && cbMonHoc.Text == "Tất cả" && cbMaHS.Text != "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore3(cbHocKy.Text, cbMaHS.Text).Tables[0];
-            else if (cbHocKy.Text != "Tất cả" && cbMonHoc.Text != "Tất cả" && cbMaHS.Text == "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text).Tables[0];
-            else if (cbHocKy.Text == "Tất cả" && cbMonHoc.Text == "Tất cả" && cbMaHS.Text != "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore3(cbMaHS.Text).Tables[0];
-            else if (cbHocKy.Text == "Tất cả" && cbMonHoc.Text != "Tất cả" && cbMaHS.Text == "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore2(cbMonHoc.Text).Tables[0];
-            else if (cbHocKy.Text != "Tất cả" && cbMonHoc.Text == "Tất cả" && cbMaHS.Text == "Tất cả")
-                dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text).Tables[0];
+            if (cbHocKy.Text != "" && cbMonHoc.Text != "" && cbLop.Text != "")
+            {
+                
+                dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbLop.Text).Tables[0];
+                setRowNumber(dgvChiTietBangDiem);
+            }
             else
-                LoadData();
+                MessageBox.Show("Thiếu thông tin tìm kiếm!");
 
+        }
+        private void setRowNumber(DataGridView dgv)
+        {
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+            }
         }
     }
 }
