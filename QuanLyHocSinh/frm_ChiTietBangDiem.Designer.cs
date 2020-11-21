@@ -45,6 +45,7 @@ namespace QuanLyHocSinh
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnCapNhat = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnTimKiem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietBangDiem)).BeginInit();
             this.gbBangDiem.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -119,11 +120,11 @@ namespace QuanLyHocSinh
             // dgvChiTietBangDiem
             // 
             this.dgvChiTietBangDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChiTietBangDiem.Location = new System.Drawing.Point(283, 42);
+            this.dgvChiTietBangDiem.Location = new System.Drawing.Point(283, 39);
             this.dgvChiTietBangDiem.Name = "dgvChiTietBangDiem";
             this.dgvChiTietBangDiem.RowHeadersWidth = 51;
             this.dgvChiTietBangDiem.RowTemplate.Height = 24;
-            this.dgvChiTietBangDiem.Size = new System.Drawing.Size(505, 348);
+            this.dgvChiTietBangDiem.Size = new System.Drawing.Size(1049, 352);
             this.dgvChiTietBangDiem.TabIndex = 8;
             // 
             // gbBangDiem
@@ -157,6 +158,10 @@ namespace QuanLyHocSinh
             // cbHocKy
             // 
             this.cbHocKy.FormattingEnabled = true;
+            this.cbHocKy.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "Tất cả"});
             this.cbHocKy.Location = new System.Drawing.Point(116, 27);
             this.cbHocKy.Name = "cbHocKy";
             this.cbHocKy.Size = new System.Drawing.Size(121, 24);
@@ -166,16 +171,16 @@ namespace QuanLyHocSinh
             // 
             this.groupBox2.Controls.Add(this.btnThoat);
             this.groupBox2.Controls.Add(this.btnCapNhat);
-            this.groupBox2.Location = new System.Drawing.Point(12, 228);
+            this.groupBox2.Location = new System.Drawing.Point(12, 282);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(265, 162);
+            this.groupBox2.Size = new System.Drawing.Size(265, 109);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức năng";
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(92, 103);
+            this.btnThoat.Location = new System.Drawing.Point(140, 35);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(92, 48);
             this.btnThoat.TabIndex = 5;
@@ -185,7 +190,7 @@ namespace QuanLyHocSinh
             // 
             // btnCapNhat
             // 
-            this.btnCapNhat.Location = new System.Drawing.Point(92, 39);
+            this.btnCapNhat.Location = new System.Drawing.Point(33, 35);
             this.btnCapNhat.Name = "btnCapNhat";
             this.btnCapNhat.Size = new System.Drawing.Size(92, 48);
             this.btnCapNhat.TabIndex = 2;
@@ -201,18 +206,30 @@ namespace QuanLyHocSinh
             this.label6.TabIndex = 13;
             this.label6.Text = "Bảng điểm";
             // 
+            // btnTimKiem
+            // 
+            this.btnTimKiem.Location = new System.Drawing.Point(30, 228);
+            this.btnTimKiem.Name = "btnTimKiem";
+            this.btnTimKiem.Size = new System.Drawing.Size(230, 48);
+            this.btnTimKiem.TabIndex = 2;
+            this.btnTimKiem.Text = "Tìm kiếm";
+            this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
+            // 
             // frm_ChiTietBangDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 402);
+            this.ClientSize = new System.Drawing.Size(1344, 410);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gbBangDiem);
             this.Controls.Add(this.dgvChiTietBangDiem);
             this.Name = "frm_ChiTietBangDiem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_ChiTietBangDiem";
+            this.Load += new System.EventHandler(this.frm_ChiTietBangDiem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietBangDiem)).EndInit();
             this.gbBangDiem.ResumeLayout(false);
             this.gbBangDiem.PerformLayout();
@@ -240,5 +257,6 @@ namespace QuanLyHocSinh
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnCapNhat;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnTimKiem;
     }
 }

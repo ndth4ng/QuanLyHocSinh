@@ -89,10 +89,12 @@ namespace QuanLyHocSinh
             {
                 dataProvider.open();
                 string deleteCommand = "DELETE FROM TONGKETLOP WHERE MaHS = @maHS " +
+                                       "DELETE FROM CTBANGDIEMMON WHERE MaHS = @maHS3 " +
                                        "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS2";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
                 sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                sqlParams.Add(new SqlParameter("@maHS3", maHS));
                 dataProvider.executeNonQuery(deleteCommand, sqlParams);          
             }
             catch (Exception)
@@ -130,7 +132,7 @@ namespace QuanLyHocSinh
 
         public DataSet GetStudentFromClass()
         {
-            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ' " +
+            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh',TenLop as 'Lớp', DiaChi as 'Địa chỉ' " +
                "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
                "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop";
             return dataProvider.GetData(sqlString);

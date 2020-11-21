@@ -52,6 +52,7 @@ namespace QuanLyHocSinh
             // 
             // cbLop
             // 
+            this.cbLop.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLop.FormattingEnabled = true;
             this.cbLop.Location = new System.Drawing.Point(52, 14);
             this.cbLop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -70,6 +71,7 @@ namespace QuanLyHocSinh
             // 
             // cbMonHoc
             // 
+            this.cbMonHoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMonHoc.FormattingEnabled = true;
             this.cbMonHoc.Location = new System.Drawing.Point(280, 14);
             this.cbMonHoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -88,7 +90,11 @@ namespace QuanLyHocSinh
             // 
             // cbHocKy
             // 
+            this.cbHocKy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbHocKy.FormattingEnabled = true;
+            this.cbHocKy.Items.AddRange(new object[] {
+            "1",
+            "2"});
             this.cbHocKy.Location = new System.Drawing.Point(507, 10);
             this.cbHocKy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbHocKy.Name = "cbHocKy";

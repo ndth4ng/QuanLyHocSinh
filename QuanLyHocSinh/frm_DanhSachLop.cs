@@ -13,8 +13,8 @@ namespace QuanLyHocSinh
     public partial class frm_DanhSachLop : Form
     {
         HocSinhData hs = new HocSinhData();
-        LopHocData lop = new LopHocData();
-        DataProvider dataProvider = new DataProvider();
+        //LopHocData lop = new LopHocData();
+        //DataProvider dataProvider = new DataProvider();
         public frm_DanhSachLop()
         {
             InitializeComponent();

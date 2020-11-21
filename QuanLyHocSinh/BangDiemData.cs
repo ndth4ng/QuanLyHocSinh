@@ -17,12 +17,13 @@ namespace QuanLyHocSinh
             dataProvider.connect();
         }
 
-        public bool search(string id)
+        public bool search(string id, string maHS)
         {
             dataProvider.open();
-            string searchQuery = "SELECT * FROM BANGDIEMMON WHERE IDBangDiemMon = @ID";
+            string searchQuery = "SELECT * FROM CTBANGDIEMMON WHERE IDBangDiemMon = @ID AND MaHS = @maHS";
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@ID", id));
+            sqlParams.Add(new SqlParameter("@maHS", maHS));
             SqlDataReader obj = dataProvider.executeQuerry(searchQuery, sqlParams);
 
             if (obj.HasRows)
@@ -34,8 +35,8 @@ namespace QuanLyHocSinh
             return false;
         }
 
-        public void ThemLopHoc(string maLop) 
-        { 
+        public void ThemLopHoc(string maLop)
+        {
             string sqlQuery = "SELECT IDMonHoc FROM MONHOC";
             DataTable monHoc = dataProvider.GetDataTable(sqlQuery);
             foreach (DataRow row in monHoc.Rows)
@@ -51,7 +52,7 @@ namespace QuanLyHocSinh
                     sqlParams.Add(new SqlParameter("@maLop2", maLop));
                     sqlParams.Add(new SqlParameter("@monHoc2", row[0]));
                     sqlParams.Add(new SqlParameter("@hocKy1", 1));
-                    sqlParams.Add(new SqlParameter("@hocKy2", 2));               
+                    sqlParams.Add(new SqlParameter("@hocKy2", 2));
                     dataProvider.executeNonQuery(insertCommand, sqlParams);
                 }
                 catch (Exception)
@@ -64,7 +65,7 @@ namespace QuanLyHocSinh
                 }
             }
         }
-        public void ThemMonHoc(string maMH) 
+        public void ThemMonHoc(string maMH)
         {
             string sqlQuery = "SELECT IDLop FROM LOP";
             DataTable lopHoc = dataProvider.GetDataTable(sqlQuery);
@@ -84,7 +85,7 @@ namespace QuanLyHocSinh
                     sqlParams.Add(new SqlParameter("@hocKy2", 2));
                     dataProvider.executeNonQuery(insertCommand, sqlParams);
                 }
-                catch (Exception) 
+                catch (Exception)
                 {
                     return;
                 }
@@ -94,9 +95,9 @@ namespace QuanLyHocSinh
                 }
             }
         }
-        public void ThemHocSinh() 
+        public void ThemHocSinh()
         {
-            string sqlQuery = "SELECT MaHS, BD.IDLop, IDBangDiemMon FROM BANGDIEMMON BD, TONGKETLOP TK WHERE BD.IDLop = TK.IDLop;";
+            string sqlQuery = "SELECT MaHS, IDBangDiemMon FROM BANGDIEMMON BD, TONGKETLOP TK WHERE BD.IDLop = TK.IDLop;";
             DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
             foreach (DataRow row in bangDiem.Rows)
             {
@@ -104,20 +105,20 @@ namespace QuanLyHocSinh
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", row[0]));
                 sqlParams.Add(new SqlParameter("@maHS2", row[0]));
-                sqlParams.Add(new SqlParameter("@maBD", row[2]));
-                sqlParams.Add(new SqlParameter("@maBD2", row[2]));
-                if (this.search(row[2].ToString().Trim()) == false)
+                sqlParams.Add(new SqlParameter("@maBD", row[1]));
+                sqlParams.Add(new SqlParameter("@maBD2", row[1]));
+                if (this.search(row[1].ToString().Trim(), row[0].ToString().Trim()) == false)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         dataProvider.open();
                         dataProvider.executeNonQuery(insertCommand, sqlParams);
-                    //}
-                    //catch (Exception) { }
-                    //finally
-                    //{
+                    }
+                    catch (Exception) { }
+                    finally
+                    {
                         dataProvider.disconnect();
-                    //}
+                    }
                 }
             }
         }
@@ -148,6 +149,82 @@ namespace QuanLyHocSinh
                     dataProvider.disconnect();
                 }
             }
+        }
+        public DataTable AllSubject()
+        {
+            string sqlString = "SELECT TenMH FROM MONHOC";
+            DataTable dataTable = dataProvider.GetDataTable(sqlString);
+            return dataTable;
+        }
+
+        public DataTable AllStudent()
+        {
+            string sqlString = "SELECT MaHS FROM HOSOHOCSINH";
+            DataTable dataTable = dataProvider.GetDataTable(sqlString);
+            return dataTable;
+        }
+
+        public DataSet GetScoreAll()
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon;";
+            return dataProvider.GetData(sqlString);
+        }
+        public DataSet GetScore(string hocKy)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + ";";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore2(string tenMH)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore3(string maHS)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND CTBD.MaHS = '" + maHS + "';";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore(string hocKy, string tenMH)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + " AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore2(string tenMH, string maHS)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND CTBD.MaHS = '" + maHS + "' AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore3(string hocKy, string maHS)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND CTBD.MaHS = '" + maHS + "' AND HocKy = " + hocKy + ";";
+            return dataProvider.GetData(sqlString);
+        }
+
+        public DataSet GetScore(string hocKy, string tenMH, string maHS)
+        {
+            string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
+                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
+                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + " AND CTBD.MaHS = '" + maHS + "' AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
+            return dataProvider.GetData(sqlString);
         }
     }
 }
