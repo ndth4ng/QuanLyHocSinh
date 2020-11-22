@@ -69,7 +69,7 @@
             this.btnThoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(92, 48);
-            this.btnThoat.TabIndex = 5;
+            this.btnThoat.TabIndex = 8;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
@@ -80,7 +80,7 @@
             this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(92, 48);
-            this.btnThem.TabIndex = 2;
+            this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
@@ -118,7 +118,7 @@
             this.dateNgaySinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateNgaySinh.Name = "dateNgaySinh";
             this.dateNgaySinh.Size = new System.Drawing.Size(304, 22);
-            this.dateNgaySinh.TabIndex = 8;
+            this.dateNgaySinh.TabIndex = 4;
             this.dateNgaySinh.Value = new System.DateTime(2020, 11, 13, 23, 16, 28, 0);
             // 
             // txtDiaChi
@@ -127,7 +127,7 @@
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(304, 22);
-            this.txtDiaChi.TabIndex = 7;
+            this.txtDiaChi.TabIndex = 6;
             // 
             // label6
             // 
@@ -145,7 +145,7 @@
             this.cbLop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbLop.Name = "cbLop";
             this.cbLop.Size = new System.Drawing.Size(85, 24);
-            this.cbLop.TabIndex = 5;
+            this.cbLop.TabIndex = 3;
             // 
             // label5
             // 
@@ -166,7 +166,7 @@
             this.cbGioiTinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbGioiTinh.Name = "cbGioiTinh";
             this.cbGioiTinh.Size = new System.Drawing.Size(87, 24);
-            this.cbGioiTinh.TabIndex = 3;
+            this.cbGioiTinh.TabIndex = 2;
             // 
             // label4
             // 
@@ -183,7 +183,7 @@
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(304, 22);
-            this.txtEmail.TabIndex = 1;
+            this.txtEmail.TabIndex = 5;
             // 
             // txtTenHS
             // 

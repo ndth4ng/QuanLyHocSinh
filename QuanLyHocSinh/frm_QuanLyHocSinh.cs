@@ -107,22 +107,22 @@ namespace QuanLyHocSinh
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            bool check = true;
-            try
-            {
+            //bool check = true;
+            //try
+            //{
                 data.update(txtMaHS.Text, txtTenHS.Text, txtEmail.Text, cbGioiTinh.SelectedItem.ToString(), dateNgaySinh.Value.Date, txtDiaChi.Text, cbLop.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                check = false;
-            }
-            finally
-            {
+            //}
+            //catch (Exception ex)
+            //{
+                //MessageBox.Show(ex.Message);
+                //check = false;
+            //}
+            //finally
+            //{
                 LoadData();
-            }
-            if (check)
-                MessageBox.Show("Cập nhật thông tin học sinh thành công!");
+            //}
+            //if (check)
+                //MessageBox.Show("Cập nhật thông tin học sinh thành công!");
         }
     }
 }

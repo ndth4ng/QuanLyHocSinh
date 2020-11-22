@@ -74,8 +74,9 @@ namespace QuanLyHocSinh
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
-            //MessageBox.Show("Xóa lớp học thành công!");
+            MessageBox.Show("Xóa lớp học thành công!");
             LoadData();
         }
 

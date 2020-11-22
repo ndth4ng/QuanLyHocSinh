@@ -34,17 +34,35 @@ namespace QuanLyHocSinh
             return false;
         }
 
+        public bool maxClass()
+        {
+            string searchQuery = "SELECT SoLuongLop FROM THAMSO;";
+            object obj = dataProvider.executeScalar(searchQuery);
+
+            searchQuery = "SELECT COUNT(*) FROM LOP;";
+            object obj2 = dataProvider.executeScalar(searchQuery);
+
+            if (Int32.Parse(obj2.ToString()) >= Int32.Parse(obj.ToString()))          
+                return false;
+            return true;
+        }
+
         public void insert(string maLop, string tenLop)
         {
-            dataProvider.open();          
-            string insertCommand = "INSERT INTO LOP(IDLop, TenLop) VALUES(@maLop, @tenLop) ";                   
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maLop", maLop));
-            sqlParams.Add(new SqlParameter("@tenLop", tenLop));
-            dataProvider.executeNonQuery(insertCommand, sqlParams);
-            dataProvider.disconnect();
+            if (maxClass())
+            {
+                dataProvider.open();
+                string insertCommand = "INSERT INTO LOP(IDLop, TenLop) VALUES(@maLop, @tenLop) ";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maLop", maLop));
+                sqlParams.Add(new SqlParameter("@tenLop", tenLop));
+                dataProvider.executeNonQuery(insertCommand, sqlParams);
+                dataProvider.disconnect();
 
-            this.ThemLopHoc(maLop);
+                this.ThemLopHoc(maLop);
+            }
+            else
+                throw new Exception("Số lượng lớp học đã đạt tối đa!");
         }
 
         public void ThemLopHoc(string maLop)
@@ -96,7 +114,7 @@ namespace QuanLyHocSinh
                 dataProvider.open();
                 string deleteCommand = "DELETE FROM BANGDIEMMON WHERE IDLop = @maLop " +
                     "DELETE FROM LOP WHERE IDLop = @maLop2";
-                //"DELETE FROM TONGKETLOP IDLop = @maLop3";
+                    //"DELETE FROM CTBangDiemMon WHERE IDCTBangDiemMon = SUBSTRING";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maLop", maLop));
                 sqlParams.Add(new SqlParameter("@maLop2", maLop));

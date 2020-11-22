@@ -27,9 +27,6 @@ namespace QuanLyHocSinh
         public void LoadData()
         {
             FillComboBox();
-            //dgvChiTietBangDiem.DataSource = data.GetScoreAll().Tables[0];
-            //dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            //dgvChiTietBangDiem.Columns[dgvChiTietBangDiem.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             cbMonHoc.SelectedIndex = -1;
             cbLop.SelectedIndex = -1;
         }
@@ -102,12 +99,25 @@ namespace QuanLyHocSinh
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            data.update(idct, txt15.Text, txt45.Text);
-            dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbLop.Text).Tables[0];
-            dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvChiTietBangDiem.Columns["Mã HS"].Visible = false;
-            dgvChiTietBangDiem.Columns["Mã CT"].Visible = false;
-            setRowNumber(dgvChiTietBangDiem);
+            try
+            {
+                data.update(idct, txt15.Text, txt45.Text);
+                dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbLop.Text).Tables[0];
+                dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvChiTietBangDiem.Columns["Mã HS"].Visible = false;
+                dgvChiTietBangDiem.Columns["Mã CT"].Visible = false;
+                setRowNumber(dgvChiTietBangDiem);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void frm_ChiTietBangDiem_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            data.TinhDiem();
         }
     }
 }

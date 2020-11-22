@@ -62,6 +62,7 @@ namespace QuanLyHocSinh
             }
 
             this.ThemHocSinh(maHS, lop);
+            this.UpdateSiSo();
         }
 
         public void update(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
@@ -88,7 +89,11 @@ namespace QuanLyHocSinh
                 sqlParams.Add(new SqlParameter("@lop", lop));
                 dataProvider.executeNonQuery(updateCommand, sqlParams);
 
+                dataProvider.disconnect();
+
                 this.SuaHocSinh(maHS, lopCu.ToString(), lop);
+           
+                dataProvider.open();
             }
             catch (Exception ex)
             {
@@ -96,8 +101,9 @@ namespace QuanLyHocSinh
             }
             finally
             {
-                dataProvider.disconnect();
+                dataProvider.disconnect();               
             }
+            this.UpdateSiSo();
         }
 
         public void delete(string maHS)
@@ -122,6 +128,8 @@ namespace QuanLyHocSinh
             {
                 dataProvider.disconnect();
             }
+
+            this.UpdateSiSo();
         }
 
         public void ThemHocSinh(string maHS, string lop)
@@ -185,6 +193,33 @@ namespace QuanLyHocSinh
             }
         }
 
+        public void UpdateSiSo()
+        {
+            string sqlString = "SELECT IDLop, COUNT(*) " +
+                "FROM TONGKETLOP " +
+                "GROUP BY IDLop";
+            DataTable siSo = dataProvider.GetDataTable(sqlString);
+            foreach (DataRow row in siSo.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "UPDATE LOP SET SiSo = @siSo WHERE IDLop = @maLop;";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@siSo", row[1]));
+                    sqlParams.Add(new SqlParameter("@maLop", row[0]));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
+        }
         public DataTable AllClass()
         {    
             string sqlString = "SELECT TenLop FROM LOP";
@@ -222,7 +257,6 @@ namespace QuanLyHocSinh
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@tenLop", tenLop));
             return dataProvider.executeScalar(sqlString, sqlParams);
-
         }
 
 

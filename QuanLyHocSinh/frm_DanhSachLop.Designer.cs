@@ -82,7 +82,7 @@ namespace QuanLyHocSinh
             this.btnThoat.Location = new System.Drawing.Point(697, 12);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(75, 23);
-            this.btnThoat.TabIndex = 4;
+            this.btnThoat.TabIndex = 2;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
@@ -92,7 +92,7 @@ namespace QuanLyHocSinh
             this.btnThem.Location = new System.Drawing.Point(12, 10);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(138, 23);
-            this.btnThem.TabIndex = 5;
+            this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm học sinh";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);

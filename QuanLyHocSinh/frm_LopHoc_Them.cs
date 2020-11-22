@@ -36,10 +36,17 @@ namespace QuanLyHocSinh
                 MessageBox.Show("Mã lớp đã tồn tại!");
             }
             else
-            {                
-                data.insert(txtMaLop.Text, txtTenLop.Text);
-                MessageBox.Show("Thêm lớp mới thành công!");
-                this.Hide();
+            {   try
+                {
+                    data.insert(txtMaLop.Text, txtTenLop.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                MessageBox.Show("Thêm lớp học mới thành công!");
+            this.Hide();
                 this.Close();
             }
 

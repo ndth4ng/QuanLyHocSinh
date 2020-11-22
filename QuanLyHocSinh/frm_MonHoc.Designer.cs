@@ -49,7 +49,7 @@ namespace QuanLyHocSinh
             // lbDSLop
             // 
             this.lbDSLop.AutoSize = true;
-            this.lbDSLop.Location = new System.Drawing.Point(312, 14);
+            this.lbDSLop.Location = new System.Drawing.Point(246, 14);
             this.lbDSLop.Name = "lbDSLop";
             this.lbDSLop.Size = new System.Drawing.Size(134, 17);
             this.lbDSLop.TabIndex = 8;
@@ -65,14 +65,14 @@ namespace QuanLyHocSinh
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(281, 284);
+            this.groupBox2.Size = new System.Drawing.Size(210, 284);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức năng";
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(92, 220);
+            this.btnThoat.Location = new System.Drawing.Point(53, 215);
             this.btnThoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(92, 48);
@@ -83,7 +83,7 @@ namespace QuanLyHocSinh
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(92, 146);
+            this.btnSua.Location = new System.Drawing.Point(53, 141);
             this.btnSua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(92, 48);
@@ -94,7 +94,7 @@ namespace QuanLyHocSinh
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(92, 94);
+            this.btnXoa.Location = new System.Drawing.Point(53, 89);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(92, 48);
@@ -105,7 +105,7 @@ namespace QuanLyHocSinh
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(92, 39);
+            this.btnThem.Location = new System.Drawing.Point(53, 34);
             this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(92, 48);
@@ -117,13 +117,13 @@ namespace QuanLyHocSinh
             // dgvMonHoc
             // 
             this.dgvMonHoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMonHoc.Location = new System.Drawing.Point(315, 39);
+            this.dgvMonHoc.Location = new System.Drawing.Point(249, 39);
             this.dgvMonHoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvMonHoc.Name = "dgvMonHoc";
             this.dgvMonHoc.ReadOnly = true;
             this.dgvMonHoc.RowHeadersWidth = 51;
             this.dgvMonHoc.RowTemplate.Height = 24;
-            this.dgvMonHoc.Size = new System.Drawing.Size(473, 398);
+            this.dgvMonHoc.Size = new System.Drawing.Size(539, 398);
             this.dgvMonHoc.TabIndex = 9;
             this.dgvMonHoc.TabStop = false;
             this.dgvMonHoc.SelectionChanged += new System.EventHandler(this.dgvLopHoc_SelectionChanged);
@@ -138,25 +138,26 @@ namespace QuanLyHocSinh
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(293, 135);
+            this.groupBox1.Size = new System.Drawing.Size(216, 135);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin môn học";
             // 
             // txtTenMH
             // 
-            this.txtTenMH.Location = new System.Drawing.Point(5, 103);
+            this.txtTenMH.Location = new System.Drawing.Point(10, 103);
             this.txtTenMH.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTenMH.Name = "txtTenMH";
-            this.txtTenMH.Size = new System.Drawing.Size(281, 22);
+            this.txtTenMH.Size = new System.Drawing.Size(192, 22);
             this.txtTenMH.TabIndex = 1;
             // 
             // txtMaMH
             // 
-            this.txtMaMH.Location = new System.Drawing.Point(7, 48);
+            this.txtMaMH.Location = new System.Drawing.Point(10, 48);
             this.txtMaMH.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMaMH.Name = "txtMaMH";
-            this.txtMaMH.Size = new System.Drawing.Size(280, 22);
+            this.txtMaMH.ReadOnly = true;
+            this.txtMaMH.Size = new System.Drawing.Size(192, 22);
             this.txtMaMH.TabIndex = 0;
             // 
             // label2

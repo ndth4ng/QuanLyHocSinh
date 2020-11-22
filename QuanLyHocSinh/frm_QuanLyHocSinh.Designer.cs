@@ -29,7 +29,6 @@ namespace QuanLyHocSinh
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbDSHS = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
@@ -56,70 +55,61 @@ namespace QuanLyHocSinh
             this.gbHocSinh.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lbDSHS
-            // 
-            this.lbDSHS.AutoSize = true;
-            this.lbDSHS.Location = new System.Drawing.Point(347, 12);
-            this.lbDSHS.Name = "lbDSHS";
-            this.lbDSHS.Size = new System.Drawing.Size(133, 17);
-            this.lbDSHS.TabIndex = 12;
-            this.lbDSHS.Text = "Danh sách học sinh";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnThoat);
             this.groupBox2.Controls.Add(this.btnSua);
             this.groupBox2.Controls.Add(this.btnXoa);
             this.groupBox2.Controls.Add(this.btnThem);
-            this.groupBox2.Location = new System.Drawing.Point(12, 366);
+            this.groupBox2.Location = new System.Drawing.Point(177, 137);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(328, 284);
+            this.groupBox2.Size = new System.Drawing.Size(642, 106);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức năng";
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(117, 218);
+            this.btnThoat.Location = new System.Drawing.Point(458, 35);
             this.btnThoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(92, 48);
-            this.btnThoat.TabIndex = 5;
+            this.btnThoat.TabIndex = 10;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(117, 145);
+            this.btnSua.Location = new System.Drawing.Point(229, 35);
             this.btnSua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(92, 48);
-            this.btnSua.TabIndex = 4;
+            this.btnSua.TabIndex = 9;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(117, 91);
+            this.btnXoa.Location = new System.Drawing.Point(341, 35);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(92, 48);
-            this.btnXoa.TabIndex = 3;
+            this.btnXoa.TabIndex = 8;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(117, 37);
+            this.btnThem.Location = new System.Drawing.Point(114, 35);
             this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(92, 48);
-            this.btnThem.TabIndex = 2;
+            this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
@@ -127,19 +117,20 @@ namespace QuanLyHocSinh
             // dgvDanhSachHS
             // 
             this.dgvDanhSachHS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDanhSachHS.Location = new System.Drawing.Point(349, 39);
+            this.dgvDanhSachHS.Location = new System.Drawing.Point(12, 340);
             this.dgvDanhSachHS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvDanhSachHS.Name = "dgvDanhSachHS";
             this.dgvDanhSachHS.ReadOnly = true;
             this.dgvDanhSachHS.RowHeadersWidth = 51;
             this.dgvDanhSachHS.RowTemplate.Height = 24;
-            this.dgvDanhSachHS.Size = new System.Drawing.Size(987, 610);
+            this.dgvDanhSachHS.Size = new System.Drawing.Size(1006, 307);
             this.dgvDanhSachHS.TabIndex = 13;
             this.dgvDanhSachHS.TabStop = false;
             this.dgvDanhSachHS.SelectionChanged += new System.EventHandler(this.dgvDanhSachHS_SelectionChanged);
             // 
             // gbHocSinh
             // 
+            this.gbHocSinh.Controls.Add(this.groupBox2);
             this.gbHocSinh.Controls.Add(this.dateNgaySinh);
             this.gbHocSinh.Controls.Add(this.txtDiaChi);
             this.gbHocSinh.Controls.Add(this.label6);
@@ -154,11 +145,11 @@ namespace QuanLyHocSinh
             this.gbHocSinh.Controls.Add(this.txtMaHS);
             this.gbHocSinh.Controls.Add(this.label2);
             this.gbHocSinh.Controls.Add(this.label1);
-            this.gbHocSinh.Location = new System.Drawing.Point(12, 12);
+            this.gbHocSinh.Location = new System.Drawing.Point(12, 74);
             this.gbHocSinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbHocSinh.Name = "gbHocSinh";
             this.gbHocSinh.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbHocSinh.Size = new System.Drawing.Size(328, 348);
+            this.gbHocSinh.Size = new System.Drawing.Size(1006, 262);
             this.gbHocSinh.TabIndex = 10;
             this.gbHocSinh.TabStop = false;
             this.gbHocSinh.Text = "Thông tin học sinh";
@@ -167,25 +158,25 @@ namespace QuanLyHocSinh
             // 
             this.dateNgaySinh.CustomFormat = "";
             this.dateNgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateNgaySinh.Location = new System.Drawing.Point(11, 197);
+            this.dateNgaySinh.Location = new System.Drawing.Point(111, 84);
             this.dateNgaySinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateNgaySinh.Name = "dateNgaySinh";
-            this.dateNgaySinh.Size = new System.Drawing.Size(304, 22);
-            this.dateNgaySinh.TabIndex = 8;
+            this.dateNgaySinh.Size = new System.Drawing.Size(135, 22);
+            this.dateNgaySinh.TabIndex = 4;
             this.dateNgaySinh.Value = new System.DateTime(2020, 11, 19, 0, 0, 0, 0);
             // 
             // txtDiaChi
             // 
-            this.txtDiaChi.Location = new System.Drawing.Point(11, 308);
+            this.txtDiaChi.Location = new System.Drawing.Point(700, 84);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.Size = new System.Drawing.Size(304, 22);
-            this.txtDiaChi.TabIndex = 7;
+            this.txtDiaChi.Size = new System.Drawing.Size(277, 22);
+            this.txtDiaChi.TabIndex = 6;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 288);
+            this.label6.Location = new System.Drawing.Point(643, 87);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 17);
             this.label6.TabIndex = 6;
@@ -195,16 +186,16 @@ namespace QuanLyHocSinh
             // 
             this.cbLop.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLop.FormattingEnabled = true;
-            this.cbLop.Location = new System.Drawing.Point(227, 142);
+            this.cbLop.Location = new System.Drawing.Point(521, 86);
             this.cbLop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbLop.Name = "cbLop";
             this.cbLop.Size = new System.Drawing.Size(85, 24);
-            this.cbLop.TabIndex = 5;
+            this.cbLop.TabIndex = 3;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(187, 142);
+            this.label5.Location = new System.Drawing.Point(483, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 17);
             this.label5.TabIndex = 4;
@@ -217,16 +208,16 @@ namespace QuanLyHocSinh
             this.cbGioiTinh.Items.AddRange(new object[] {
             "Nam",
             "Nữ"});
-            this.cbGioiTinh.Location = new System.Drawing.Point(77, 142);
+            this.cbGioiTinh.Location = new System.Drawing.Point(371, 86);
             this.cbGioiTinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbGioiTinh.Name = "cbGioiTinh";
-            this.cbGioiTinh.Size = new System.Drawing.Size(87, 24);
-            this.cbGioiTinh.TabIndex = 3;
+            this.cbGioiTinh.Size = new System.Drawing.Size(96, 24);
+            this.cbGioiTinh.TabIndex = 2;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 142);
+            this.label4.Location = new System.Drawing.Point(275, 89);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 17);
             this.label4.TabIndex = 2;
@@ -234,24 +225,24 @@ namespace QuanLyHocSinh
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(11, 252);
+            this.txtEmail.Location = new System.Drawing.Point(700, 37);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(304, 22);
-            this.txtEmail.TabIndex = 1;
+            this.txtEmail.Size = new System.Drawing.Size(277, 22);
+            this.txtEmail.TabIndex = 5;
             // 
             // txtTenHS
             // 
-            this.txtTenHS.Location = new System.Drawing.Point(11, 103);
+            this.txtTenHS.Location = new System.Drawing.Point(371, 37);
             this.txtTenHS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTenHS.Name = "txtTenHS";
-            this.txtTenHS.Size = new System.Drawing.Size(305, 22);
+            this.txtTenHS.Size = new System.Drawing.Size(235, 22);
             this.txtTenHS.TabIndex = 1;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 177);
+            this.label7.Location = new System.Drawing.Point(20, 89);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 17);
             this.label7.TabIndex = 0;
@@ -260,7 +251,7 @@ namespace QuanLyHocSinh
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 231);
+            this.label3.Location = new System.Drawing.Point(643, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 17);
             this.label3.TabIndex = 0;
@@ -268,17 +259,17 @@ namespace QuanLyHocSinh
             // 
             // txtMaHS
             // 
-            this.txtMaHS.Location = new System.Drawing.Point(11, 47);
+            this.txtMaHS.Location = new System.Drawing.Point(111, 37);
             this.txtMaHS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMaHS.Name = "txtMaHS";
             this.txtMaHS.ReadOnly = true;
-            this.txtMaHS.Size = new System.Drawing.Size(304, 22);
+            this.txtMaHS.Size = new System.Drawing.Size(135, 22);
             this.txtMaHS.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 84);
+            this.label2.Location = new System.Drawing.Point(275, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 17);
             this.label2.TabIndex = 0;
@@ -287,7 +278,7 @@ namespace QuanLyHocSinh
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 27);
+            this.label1.Location = new System.Drawing.Point(20, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 17);
             this.label1.TabIndex = 0;
@@ -297,9 +288,7 @@ namespace QuanLyHocSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1348, 661);
-            this.Controls.Add(this.lbDSHS);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(1039, 658);
             this.Controls.Add(this.dgvDanhSachHS);
             this.Controls.Add(this.gbHocSinh);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -312,13 +301,10 @@ namespace QuanLyHocSinh
             this.gbHocSinh.ResumeLayout(false);
             this.gbHocSinh.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lbDSHS;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnSua;

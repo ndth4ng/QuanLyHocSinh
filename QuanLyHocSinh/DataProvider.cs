@@ -90,7 +90,16 @@ namespace QuanLyHocSinh
             object obj = command.ExecuteScalar();
             connection.Close();
             return obj;
-        }    
+        }
+
+        public object executeScalar(string sqlString)
+        {
+            connection.Open();
+            command = new SqlCommand(sqlString, connection);
+            object obj = command.ExecuteScalar();
+            connection.Close();
+            return obj;
+        }
 
         public DataSet GetData(string sqlString)
         {
@@ -100,7 +109,7 @@ namespace QuanLyHocSinh
             adapter.Fill(data);
             connection.Close();
             return data;
-        }
+        } 
 
         public DataTable GetDataTable(string sqlString)
         {

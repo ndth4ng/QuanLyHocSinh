@@ -35,6 +35,7 @@ namespace QuanLyHocSinh
             this.label3 = new System.Windows.Forms.Label();
             this.cbMonHoc = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTongKetMon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,7 +62,10 @@ namespace QuanLyHocSinh
             // cbHocKy
             // 
             this.cbHocKy.FormattingEnabled = true;
-            this.cbHocKy.Location = new System.Drawing.Point(615, 16);
+            this.cbHocKy.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.cbHocKy.Location = new System.Drawing.Point(528, 17);
             this.cbHocKy.Name = "cbHocKy";
             this.cbHocKy.Size = new System.Drawing.Size(121, 24);
             this.cbHocKy.TabIndex = 7;
@@ -69,7 +73,7 @@ namespace QuanLyHocSinh
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(548, 19);
+            this.label3.Location = new System.Drawing.Point(461, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 4;
@@ -78,7 +82,7 @@ namespace QuanLyHocSinh
             // cbMonHoc
             // 
             this.cbMonHoc.FormattingEnabled = true;
-            this.cbMonHoc.Location = new System.Drawing.Point(398, 19);
+            this.cbMonHoc.Location = new System.Drawing.Point(311, 20);
             this.cbMonHoc.Name = "cbMonHoc";
             this.cbMonHoc.Size = new System.Drawing.Size(121, 24);
             this.cbMonHoc.TabIndex = 8;
@@ -86,17 +90,28 @@ namespace QuanLyHocSinh
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(336, 19);
+            this.label2.Location = new System.Drawing.Point(249, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Môn học";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(676, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frm_BaoCaoTongKetMon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1048, 735);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.dgvTongKetMon);
             this.Controls.Add(this.cbHocKy);
@@ -106,6 +121,7 @@ namespace QuanLyHocSinh
             this.Name = "frm_BaoCaoTongKetMon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_BaoCaoBangDiemMonHoc";
+            this.Load += new System.EventHandler(this.frm_BaoCaoTongKetMon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTongKetMon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -120,5 +136,6 @@ namespace QuanLyHocSinh
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbMonHoc;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
