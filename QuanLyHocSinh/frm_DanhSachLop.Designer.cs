@@ -34,6 +34,7 @@ namespace QuanLyHocSinh
             this.lbSiSoLop = new System.Windows.Forms.Label();
             this.dgvDanhSachLop = new System.Windows.Forms.DataGridView();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btnThem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachLop)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,14 +71,15 @@ namespace QuanLyHocSinh
             this.dgvDanhSachLop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhSachLop.Location = new System.Drawing.Point(12, 43);
             this.dgvDanhSachLop.Name = "dgvDanhSachLop";
+            this.dgvDanhSachLop.ReadOnly = true;
             this.dgvDanhSachLop.RowHeadersWidth = 51;
             this.dgvDanhSachLop.RowTemplate.Height = 24;
-            this.dgvDanhSachLop.Size = new System.Drawing.Size(776, 395);
+            this.dgvDanhSachLop.Size = new System.Drawing.Size(761, 395);
             this.dgvDanhSachLop.TabIndex = 3;
             // 
             // btnThoat
             // 
-            this.btnThoat.Location = new System.Drawing.Point(713, 10);
+            this.btnThoat.Location = new System.Drawing.Point(697, 12);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(75, 23);
             this.btnThoat.TabIndex = 4;
@@ -85,11 +87,22 @@ namespace QuanLyHocSinh
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
+            // btnThem
+            // 
+            this.btnThem.Location = new System.Drawing.Point(12, 10);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(138, 23);
+            this.btnThem.TabIndex = 5;
+            this.btnThem.Text = "Thêm học sinh";
+            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            // 
             // frm_DanhSachLop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 450);
+            this.Controls.Add(this.btnThem);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.dgvDanhSachLop);
             this.Controls.Add(this.lbSiSoLop);
@@ -112,5 +125,6 @@ namespace QuanLyHocSinh
         private System.Windows.Forms.Label lbSiSoLop;
         private System.Windows.Forms.DataGridView dgvDanhSachLop;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btnThem;
     }
 }

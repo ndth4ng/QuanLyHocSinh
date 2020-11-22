@@ -19,7 +19,7 @@ namespace QuanLyHocSinh
         public frm_LopHoc()
         {
             InitializeComponent();
-            txtMaLop.Enabled = false;
+            txtTenLop.MaxLength = 20;
         }
 
         void LoadData()
@@ -67,15 +67,24 @@ namespace QuanLyHocSinh
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            data.delete(txtMaLop.Text);
-            MessageBox.Show("Xóa lớp học thành công!");
+            try
+            {
+                data.delete(txtMaLop.Text);               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            //MessageBox.Show("Xóa lớp học thành công!");
             LoadData();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            
             data.update(txtMaLop.Text, txtTenLop.Text);
             MessageBox.Show("Cập nhập lớp học thành công!");
+
             LoadData();
         }
     }

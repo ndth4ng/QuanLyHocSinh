@@ -16,6 +16,8 @@ namespace QuanLyHocSinh
         public frm_QuanLyHocSinh_Them()
         {
             InitializeComponent();
+            txtMaHS.MaxLength = 10;
+            txtTenHS.MaxLength = 50;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)

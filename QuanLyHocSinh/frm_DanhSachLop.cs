@@ -30,6 +30,10 @@ namespace QuanLyHocSinh
             FillComboBox();
             cbLop.Text = "Tất cả";
             dgvDanhSachLop.DataSource = hs.GetStudent().Tables[0];
+            dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+            setRowNumber(dgvDanhSachLop);
         }
         void FillComboBox()
         {
@@ -45,19 +49,42 @@ namespace QuanLyHocSinh
             LoadData();         
         }
 
+        private void setRowNumber(DataGridView dgv)
+        {
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                row.HeaderCell.Value = (row.Index + 1).ToString();
+            }
+        }
+
         private void cbLop_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable table = hs.AllClass();
             if (cbLop.Text == "Tất cả")
             {
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass().Tables[0];
+                dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+                setRowNumber(dgvDanhSachLop);
                 lbSiSoLop.Text = "Sỉ số: ";
             }
             else
             {
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass(cbLop.Text).Tables[0];
+                dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+                setRowNumber(dgvDanhSachLop);
                 lbSiSoLop.Text = "Sỉ số: " + hs.Count(cbLop.Text).ToString();
             }
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            frm_QuanLyHocSinh_Them them = new frm_QuanLyHocSinh_Them();
+            them.ShowDialog();
+            LoadData();
         }
     }
 }

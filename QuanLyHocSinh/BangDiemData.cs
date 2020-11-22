@@ -35,152 +35,18 @@ namespace QuanLyHocSinh
             return false;
         }
 
-        public void ThemLopHoc(string maLop)
+        public void update(string idct, string diem15, string diem45)
         {
-            string sqlQuery = "SELECT IDMonHoc FROM MONHOC";
-            DataTable monHoc = dataProvider.GetDataTable(sqlQuery);
-            foreach (DataRow row in monHoc.Rows)
-            {
-                try
-                {
-                    dataProvider.open();
-                    string insertCommand = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '1'), @maLop2, @monHoc2, @hocKy1)" +
-                        "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '2'), @maLop2, @monHoc2, @hocKy2)";
-                    List<SqlParameter> sqlParams = new List<SqlParameter>();
-                    sqlParams.Add(new SqlParameter("@maLop", maLop));
-                    sqlParams.Add(new SqlParameter("@monHoc", row[0]));
-                    sqlParams.Add(new SqlParameter("@maLop2", maLop));
-                    sqlParams.Add(new SqlParameter("@monHoc2", row[0]));
-                    sqlParams.Add(new SqlParameter("@hocKy1", 1));
-                    sqlParams.Add(new SqlParameter("@hocKy2", 2));
-                    dataProvider.executeNonQuery(insertCommand, sqlParams);
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-                finally
-                {
-                    dataProvider.disconnect();
-                }
-            }
-        }
-        public void ThemMonHoc(string maMH)
-        {
-            string sqlQuery = "SELECT IDLop FROM LOP";
-            DataTable lopHoc = dataProvider.GetDataTable(sqlQuery);
-            foreach (DataRow row in lopHoc.Rows)
-            {
-                try
-                {
-                    dataProvider.open();
-                    string insertCommand = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '1'), @maLop2, @monHoc2, @hocKy1)" +
-                        "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '2'), @maLop2, @monHoc2, @hocKy2)";
-                    List<SqlParameter> sqlParams = new List<SqlParameter>();
-                    sqlParams.Add(new SqlParameter("@maLop", row[0]));
-                    sqlParams.Add(new SqlParameter("@monHoc", maMH));
-                    sqlParams.Add(new SqlParameter("@maLop2", row[0]));
-                    sqlParams.Add(new SqlParameter("@monHoc2", maMH));
-                    sqlParams.Add(new SqlParameter("@hocKy1", 1));
-                    sqlParams.Add(new SqlParameter("@hocKy2", 2));
-                    dataProvider.executeNonQuery(insertCommand, sqlParams);
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-                finally
-                {
-                    dataProvider.disconnect();
-                }
-            }
-        }
-        public void ThemHocSinh()
-        {
-            string sqlQuery = "SELECT MaHS, IDBangDiemMon FROM BANGDIEMMON BD, TONGKETLOP TK WHERE BD.IDLop = TK.IDLop;";
-            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
-            foreach (DataRow row in bangDiem.Rows)
-            {
-                string insertCommand = "INSERT INTO CTBANGDIEMMON(IDCTBangDiemMon, MaHS, IDBangDiemMon) VALUES (CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)),' ',''),5)), @maHS2, @maBD2)";
-                List<SqlParameter> sqlParams = new List<SqlParameter>();
-                sqlParams.Add(new SqlParameter("@maHS", row[0]));
-                sqlParams.Add(new SqlParameter("@maHS2", row[0]));
-                sqlParams.Add(new SqlParameter("@maBD", row[1]));
-                sqlParams.Add(new SqlParameter("@maBD2", row[1]));
-                if (this.search(row[1].ToString().Trim(), row[0].ToString().Trim()) == false)
-                {
-                    try
-                    {
-                        dataProvider.open();
-                        dataProvider.executeNonQuery(insertCommand, sqlParams);
-                    }
-                    catch (Exception) { }
-                    finally
-                    {
-                        dataProvider.disconnect();
-                    }
-                }
-            }
-        }
-
-        public void ThemHocSinh(string maHS, string lop)
-        {
-            string sqlQuery = "SELECT IDLop, IDBangDiemMon FROM BANGDIEMMON WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "');";
-            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
-            foreach (DataRow row in bangDiem.Rows)
-            {
-                try
-                {
-                    dataProvider.open();
-                    string insertCommand = "INSERT INTO CTBANGDIEMMON(IDCTBangDiemMon, MaHS, IDBangDiemMon) VALUES (CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)),' ',''),5)), @maHS2, @maBD2)";
-                    List<SqlParameter> sqlParams = new List<SqlParameter>();
-                    sqlParams.Add(new SqlParameter("@maHS", maHS));
-                    sqlParams.Add(new SqlParameter("@maHS2", maHS));
-                    sqlParams.Add(new SqlParameter("@maBD", row[1]));
-                    sqlParams.Add(new SqlParameter("@maBD2", row[1]));
-                    dataProvider.executeNonQuery(insertCommand, sqlParams);
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-                finally
-                {
-                    dataProvider.disconnect();
-                }
-            }
-        }
-
-        public void SuaHocSinh(string maHS, string lopCu, string lopMoi)
-        {
-            string sqlQuery = "SELECT IDLop, IDMonHoc, HocKy, IDBangDiemMon FROM BANGDIEMMON WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lopMoi + "');";
-            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
-            foreach (DataRow row in bangDiem.Rows)
-            {
-                //try
-                //{
-                    dataProvider.open();
-                    string insertCommand = "UPDATE CTBANGDIEMMON" +
-                        "SET IDCTBangDiemMon = CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)), ' ', ''),5)), IDBangDiemMon = @maBD" +
-                        "WHERE IDCTBangDiemMon = CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS2 as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@lopCu as char)), ' ', ''),2), RIGHT(REPLACE((SELECT CAST(@maMon as char)), ' ', ''),2), @hocKy ); ";
-                    List<SqlParameter> sqlParams = new List<SqlParameter>();
-                    sqlParams.Add(new SqlParameter("@maHS", maHS));
-                    sqlParams.Add(new SqlParameter("@maHS2", maHS));
-                    sqlParams.Add(new SqlParameter("@maBD", row[3]));
-                    sqlParams.Add(new SqlParameter("@maBD2", row[3]));
-                    sqlParams.Add(new SqlParameter("@maMH", row[1]));
-                    sqlParams.Add(new SqlParameter("@hocKy", row[2]));
-                    dataProvider.executeNonQuery(insertCommand, sqlParams);
-                //}
-                //catch (Exception)
-                //{
-                //    return;
-                //}
-                //finally
-                //{
-                    dataProvider.disconnect();
-                //}
-            }
+            dataProvider.open();
+            string sqlString = "UPDATE CTBANGDIEMMON SET Diem15 = @diem15, Diem45 = @diem45, Diem1T = ROUND((@diem152 + (@diem452 * 2)) / 3, 1) WHERE IDCTBangDiemMon = @idct ";
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@diem15", float.Parse(diem15)));
+            sqlParams.Add(new SqlParameter("@diem45", float.Parse(diem45)));
+            sqlParams.Add(new SqlParameter("@diem152", float.Parse(diem15)));
+            sqlParams.Add(new SqlParameter("@diem452", float.Parse(diem45)));
+            sqlParams.Add(new SqlParameter("@idct", idct));
+            SqlDataReader obj = dataProvider.executeQuerry(sqlString, sqlParams);
+            dataProvider.disconnect();
         }
 
         public DataTable AllSubject()
@@ -202,74 +68,11 @@ namespace QuanLyHocSinh
             string sqlString = "SELECT TenLop FROM LOP";
             DataTable dataTable = dataProvider.GetDataTable(sqlString);
             return dataTable;
-        }
-
-        //public DataSet GetScoreAll()
-        //{
-        //    string sqlString = "SELECT HocKy, CTBD.MaHS, HoTen, TenMH,  Diem15, Diem45, Diem1T " +
-        //        "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-        //        "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon;";
-        //    return dataProvider.GetData(sqlString);
-        //}
-
-        public DataSet GetScoreAll()
-        {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon;";
-            return dataProvider.GetData(sqlString);
-        }
-        public DataSet GetScore(string hocKy)
-        {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + ";";
-            return dataProvider.GetData(sqlString);
-        }
-
-        public DataSet GetScore2(string tenMH)
-        {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
-            return dataProvider.GetData(sqlString);
-        }
-
-        public DataSet GetScore3(string lop)
-        {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND BD.IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "');";
-            return dataProvider.GetData(sqlString);
-        }
-
-        public DataSet GetScore(string hocKy, string tenMH)
-        {
-            string sqlString = "SELECT HoTen,  Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + " AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
-            return dataProvider.GetData(sqlString);
-        }
-
-        public DataSet GetScore2(string tenMH, string lop)
-        {
-            string sqlString = "HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND BD.IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '"+lop+"') AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
-            return dataProvider.GetData(sqlString);
-        }
-
-        public DataSet GetScore3(string hocKy, string lop)
-        {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
-                "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
-                "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND BD.IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "') AND HocKy = " + hocKy + ";";
-            return dataProvider.GetData(sqlString);
-        }
+        }       
 
         public DataSet GetScore(string hocKy, string tenMH, string lop)
         {
-            string sqlString = "SELECT HoTen, Diem15, Diem45, Diem1T " +
+            string sqlString = "SELECT CTBD.MaHS as 'Mã HS', CTBD.IDCTBangDiemMon as 'Mã CT', HoTen as 'Họ tên' , Diem15 as 'Điểm 15', Diem45 as 'Điểm 45', Diem1T as 'Điểm trung bình'" +
                 "FROM BANGDIEMMON BD, MONHOC MH, CTBANGDIEMMON CTBD, HOSOHOCSINH HS " +
                 "WHERE CTBD.MaHS = HS.MaHS AND BD.IDMonHoc = MH.IDMonHoc AND BD.IDBangDiemMon = CTBD.IDBangDiemMon AND HocKy = " + hocKy + " AND BD.IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "') AND BD.IDMonHoc = (SELECT IDMonHoc FROM MONHOC WHERE TenMH = N'" + tenMH + "');";
             return dataProvider.GetData(sqlString);

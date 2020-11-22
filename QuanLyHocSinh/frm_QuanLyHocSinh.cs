@@ -34,9 +34,9 @@ namespace QuanLyHocSinh
         void LoadData()
         {
             FillComboBox();
-            dgvDanhSachHS.DataSource = data.GetStudent().Tables[0];           
-            dgvDanhSachHS.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dgvDanhSachHS.Columns[4] = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDanhSachHS.DataSource = data.GetStudent().Tables[0];
+            dgvDanhSachHS.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvDanhSachHS.Columns[dgvDanhSachHS.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
         void FillComboBox()
         {
@@ -73,8 +73,6 @@ namespace QuanLyHocSinh
                 {
                     return;
                 }
-                //MessageBox.Show(dateNgaySinh.Value.ToString());
-                //MessageBox.Show(cbGioiTinh.SelectedItem.ToString() == "Nam" ? "true" : "false");
             }
         }
 

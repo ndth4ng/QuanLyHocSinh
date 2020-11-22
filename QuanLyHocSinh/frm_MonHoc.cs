@@ -62,15 +62,19 @@ namespace QuanLyHocSinh
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            data.delete(txtMaMH.Text);
-            MessageBox.Show("Xóa lớp học thành công!");
+            DialogResult dr = MessageBox.Show("Bạn có chắc chắn xóa môn học này?", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (dr == DialogResult.Yes)
+            {
+                data.delete(txtMaMH.Text);
+                MessageBox.Show("Xóa môn học thành công!");
+            }
             LoadData();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
             data.update(txtMaMH.Text, txtTenMH.Text);
-            MessageBox.Show("Sửa lớp học thành công!");
+            MessageBox.Show("Sửa môn học thành công!");
             LoadData();
         }
     }

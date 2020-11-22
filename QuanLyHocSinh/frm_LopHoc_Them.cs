@@ -18,6 +18,7 @@ namespace QuanLyHocSinh
         public frm_LopHoc_Them()
         {
             InitializeComponent();
+            txtTenLop.MaxLength = 20;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)

@@ -39,6 +39,8 @@ namespace QuanLyHocSinh
             this.txt45 = new System.Windows.Forms.TextBox();
             this.dgvChiTietBangDiem = new System.Windows.Forms.DataGridView();
             this.gbBangDiem = new System.Windows.Forms.GroupBox();
+            this.txtMaHS = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cbHocKy = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -47,8 +49,6 @@ namespace QuanLyHocSinh
             this.label6 = new System.Windows.Forms.Label();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietBangDiem)).BeginInit();
             this.gbBangDiem.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -126,14 +126,16 @@ namespace QuanLyHocSinh
             this.dgvChiTietBangDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChiTietBangDiem.Location = new System.Drawing.Point(311, 29);
             this.dgvChiTietBangDiem.Name = "dgvChiTietBangDiem";
+            this.dgvChiTietBangDiem.ReadOnly = true;
             this.dgvChiTietBangDiem.RowHeadersWidth = 51;
             this.dgvChiTietBangDiem.RowTemplate.Height = 24;
             this.dgvChiTietBangDiem.Size = new System.Drawing.Size(770, 460);
             this.dgvChiTietBangDiem.TabIndex = 8;
+            this.dgvChiTietBangDiem.SelectionChanged += new System.EventHandler(this.dgvChiTietBangDiem_SelectionChanged);
             // 
             // gbBangDiem
             // 
-            this.gbBangDiem.Controls.Add(this.textBox1);
+            this.gbBangDiem.Controls.Add(this.txtMaHS);
             this.gbBangDiem.Controls.Add(this.txt45);
             this.gbBangDiem.Controls.Add(this.label4);
             this.gbBangDiem.Controls.Add(this.label7);
@@ -145,6 +147,22 @@ namespace QuanLyHocSinh
             this.gbBangDiem.TabIndex = 9;
             this.gbBangDiem.TabStop = false;
             this.gbBangDiem.Text = "Thông tin";
+            // 
+            // txtMaHS
+            // 
+            this.txtMaHS.Location = new System.Drawing.Point(116, 38);
+            this.txtMaHS.Name = "txtMaHS";
+            this.txtMaHS.Size = new System.Drawing.Size(164, 22);
+            this.txtMaHS.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 41);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 17);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Mã học sinh";
             // 
             // label5
             // 
@@ -195,6 +213,7 @@ namespace QuanLyHocSinh
             this.btnCapNhat.TabIndex = 2;
             this.btnCapNhat.Text = "Cập nhật";
             this.btnCapNhat.UseVisualStyleBackColor = true;
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
             // label6
             // 
@@ -230,22 +249,6 @@ namespace QuanLyHocSinh
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tra cứu";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 41);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 17);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Mã học sinh";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(116, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(164, 22);
-            this.textBox1.TabIndex = 8;
             // 
             // frm_ChiTietBangDiem
             // 
@@ -292,7 +295,7 @@ namespace QuanLyHocSinh
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMaHS;
         private System.Windows.Forms.Label label7;
     }
 }

@@ -11,7 +11,6 @@ namespace QuanLyHocSinh
     class LopHocData
     {
         private DataProvider dataProvider = new DataProvider();
-        BangDiemData bangDiem = new BangDiemData();
 
         public LopHocData()
         {
@@ -45,7 +44,38 @@ namespace QuanLyHocSinh
             dataProvider.executeNonQuery(insertCommand, sqlParams);
             dataProvider.disconnect();
 
-            bangDiem.ThemLopHoc(maLop);
+            this.ThemLopHoc(maLop);
+        }
+
+        public void ThemLopHoc(string maLop)
+        {
+            string sqlQuery = "SELECT IDMonHoc FROM MONHOC";
+            DataTable monHoc = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in monHoc.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '1'), @maLop2, @monHoc2, @hocKy1)" +
+                        "INSERT INTO BANGDIEMMON(IDBangDiemMon, IDLop, IDMonHoc, HocKy) VALUES(CONCAT('BD', REPLACE((SELECT CAST(@maLop as char)),' ', ''), RIGHT(REPLACE((SELECT CAST(@monHoc as char)), ' ', ''), 2), '2'), @maLop2, @monHoc2, @hocKy2)";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maLop", maLop));
+                    sqlParams.Add(new SqlParameter("@monHoc", row[0]));
+                    sqlParams.Add(new SqlParameter("@maLop2", maLop));
+                    sqlParams.Add(new SqlParameter("@monHoc2", row[0]));
+                    sqlParams.Add(new SqlParameter("@hocKy1", 1));
+                    sqlParams.Add(new SqlParameter("@hocKy2", 2));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
         }
 
         public void update(string maLop, string tenLop)
@@ -61,16 +91,26 @@ namespace QuanLyHocSinh
 
         public void delete(string maLop)
         {
-            dataProvider.open();
-            string deleteCommand = "DELETE FROM BANGDIEMMON WHERE IDLop = @maLop " +
-                "DELETE FROM LOP WHERE IDLop = @maLop2";
+            try
+            {
+                dataProvider.open();
+                string deleteCommand = "DELETE FROM BANGDIEMMON WHERE IDLop = @maLop " +
+                    "DELETE FROM LOP WHERE IDLop = @maLop2";
                 //"DELETE FROM TONGKETLOP IDLop = @maLop3";
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maLop", maLop));
-            sqlParams.Add(new SqlParameter("@maLop2", maLop));
-            //sqlParams.Add(new SqlParameter("@maLop3", maLop));
-            dataProvider.executeNonQuery(deleteCommand, sqlParams);
-            dataProvider.disconnect();
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maLop", maLop));
+                sqlParams.Add(new SqlParameter("@maLop2", maLop));
+                //sqlParams.Add(new SqlParameter("@maLop3", maLop));
+                dataProvider.executeNonQuery(deleteCommand, sqlParams);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Không thể xóa lớp học này!");
+            }
+            finally
+            {
+                dataProvider.disconnect();
+            }
         }
 
         public DataSet GetClass()

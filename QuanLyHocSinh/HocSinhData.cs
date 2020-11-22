@@ -11,7 +11,6 @@ namespace QuanLyHocSinh
     class HocSinhData
     {
         private DataProvider dataProvider = new DataProvider();
-        BangDiemData bangDiem = new BangDiemData();
 
         public HocSinhData()
         {
@@ -37,28 +36,38 @@ namespace QuanLyHocSinh
 
         public void insert(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
         {
-            dataProvider.open();
-            string insertCommand = "INSERT INTO HOSOHOCSINH VALUES (@maHS, @tenHS, @email, @gioiTinh, @ngaySinh, @diaChi); " +
-                                   "INSERT INTO TONGKETLOP(MaHS, IDLop) VALUES (@maHS2, (SELECT IDLop FROM LOP WHERE TenLop = @lop));";
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@maHS", maHS));
-            sqlParams.Add(new SqlParameter("@tenHS", tenHS));
-            sqlParams.Add(new SqlParameter("@email", email));
-            sqlParams.Add(new SqlParameter("@gioiTinh", (gioiTinh == "Nam") ? true : false));
-            sqlParams.Add(new SqlParameter("@ngaySinh", ngaySinh.ToString("yyyy-MM-dd")));
-            sqlParams.Add(new SqlParameter("@diaChi", diaChi));
-            sqlParams.Add(new SqlParameter("@maHS2", maHS));
-            sqlParams.Add(new SqlParameter("@lop", lop));
-            dataProvider.executeNonQuery(insertCommand, sqlParams);
-            dataProvider.disconnect();
+            try
+            {
+                dataProvider.open();
+                string insertCommand = "INSERT INTO HOSOHOCSINH VALUES (@maHS, @tenHS, @email, @gioiTinh, @ngaySinh, @diaChi); " +
+                                       "INSERT INTO TONGKETLOP(MaHS, IDLop) VALUES (@maHS2, (SELECT IDLop FROM LOP WHERE TenLop = @lop));";
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
+                sqlParams.Add(new SqlParameter("@maHS", maHS));
+                sqlParams.Add(new SqlParameter("@tenHS", tenHS));
+                sqlParams.Add(new SqlParameter("@email", email));
+                sqlParams.Add(new SqlParameter("@gioiTinh", (gioiTinh == "Nam") ? true : false));
+                sqlParams.Add(new SqlParameter("@ngaySinh", ngaySinh.ToString("yyyy-MM-dd")));
+                sqlParams.Add(new SqlParameter("@diaChi", diaChi));
+                sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                sqlParams.Add(new SqlParameter("@lop", lop));
+                dataProvider.executeNonQuery(insertCommand, sqlParams);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                dataProvider.disconnect();
+            }
 
-            bangDiem.ThemHocSinh(maHS, lop);
+            this.ThemHocSinh(maHS, lop);
         }
 
         public void update(string maHS, string tenHS, string email, string gioiTinh, DateTime ngaySinh, string diaChi, string lop)
         {
-            //try
-            //{
+            try
+            {
                 string sqlString = "SELECT IDLop FROM TONGKETLOP WHERE MaHS = @ma";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@ma", maHS));
@@ -79,16 +88,16 @@ namespace QuanLyHocSinh
                 sqlParams.Add(new SqlParameter("@lop", lop));
                 dataProvider.executeNonQuery(updateCommand, sqlParams);
 
-                bangDiem.SuaHocSinh(maHS, lopCu.ToString(), lop);
-            ///}
-            //catch (Exception)
-            //{
-            //    throw new Exception("Lỗi");
-            //}
-            //finally
-            //{
+                this.SuaHocSinh(maHS, lopCu.ToString(), lop);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
                 dataProvider.disconnect();
-            //}
+            }
         }
 
         public void delete(string maHS)
@@ -105,13 +114,74 @@ namespace QuanLyHocSinh
                 sqlParams.Add(new SqlParameter("@maHS3", maHS));
                 dataProvider.executeNonQuery(deleteCommand, sqlParams);          
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Không thể xóa học sinh này!"); 
+                throw new Exception(ex.Message); 
             }
             finally
             {
                 dataProvider.disconnect();
+            }
+        }
+
+        public void ThemHocSinh(string maHS, string lop)
+        {
+            string sqlQuery = "SELECT IDLop, IDBangDiemMon FROM BANGDIEMMON WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lop + "');";
+            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in bangDiem.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "INSERT INTO CTBANGDIEMMON(IDCTBangDiemMon, MaHS, IDBangDiemMon) VALUES (CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)),' ',''),5)), @maHS2, @maBD2)";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maHS", maHS));
+                    sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                    sqlParams.Add(new SqlParameter("@maBD", row[1]));
+                    sqlParams.Add(new SqlParameter("@maBD2", row[1]));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
+            }
+        }
+
+        public void SuaHocSinh(string maHS, string lopCu, string lopMoi)
+        {
+            string sqlQuery = "SELECT IDLop, IDMonHoc, HocKy, IDBangDiemMon FROM BANGDIEMMON WHERE IDLop = (SELECT IDLop FROM LOP WHERE TenLop = '" + lopMoi + "');";
+            DataTable bangDiem = dataProvider.GetDataTable(sqlQuery);
+            foreach (DataRow row in bangDiem.Rows)
+            {
+                try
+                {
+                    dataProvider.open();
+                    string insertCommand = "UPDATE CTBANGDIEMMON " +
+                        "SET IDCTBangDiemMon = CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@maBD as char)), ' ', ''),5)), IDBangDiemMon = @maBD2" +
+                        " WHERE IDCTBangDiemMon = CONCAT('CT', RIGHT(REPLACE((SELECT CAST(@maHS2 as char)), ' ', ''), 2), RIGHT(REPLACE((SELECT CAST(@lopCu as char)), ' ', ''),2), RIGHT(REPLACE((SELECT CAST(@maMH as char)), ' ', ''),2), @hocKy ); ";
+                    List<SqlParameter> sqlParams = new List<SqlParameter>();
+                    sqlParams.Add(new SqlParameter("@maHS", maHS));
+                    sqlParams.Add(new SqlParameter("@maHS2", maHS));
+                    sqlParams.Add(new SqlParameter("@maBD", row[3]));
+                    sqlParams.Add(new SqlParameter("@maBD2", row[3]));
+                    sqlParams.Add(new SqlParameter("@maMH", row[1]));
+                    sqlParams.Add(new SqlParameter("@lopCu", lopCu));
+                    sqlParams.Add(new SqlParameter("@hocKy", row[2]));
+                    dataProvider.executeNonQuery(insertCommand, sqlParams);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                finally
+                {
+                    dataProvider.disconnect();
+                }
             }
         }
 

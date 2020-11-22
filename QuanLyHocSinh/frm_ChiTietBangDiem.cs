@@ -12,6 +12,7 @@ namespace QuanLyHocSinh
 {
     public partial class frm_ChiTietBangDiem : Form
     {
+        string idct = "";
         BangDiemData data = new BangDiemData();
         public frm_ChiTietBangDiem()
         {
@@ -27,7 +28,8 @@ namespace QuanLyHocSinh
         {
             FillComboBox();
             //dgvChiTietBangDiem.DataSource = data.GetScoreAll().Tables[0];
-            dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dgvChiTietBangDiem.Columns[dgvChiTietBangDiem.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             cbMonHoc.SelectedIndex = -1;
             cbLop.SelectedIndex = -1;
         }
@@ -56,6 +58,9 @@ namespace QuanLyHocSinh
             {
                 
                 dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbLop.Text).Tables[0];
+                dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;             
+                dgvChiTietBangDiem.Columns["Mã HS"].Visible = false;
+                dgvChiTietBangDiem.Columns["Mã CT"].Visible = false;
                 setRowNumber(dgvChiTietBangDiem);
             }
             else
@@ -68,6 +73,41 @@ namespace QuanLyHocSinh
             {
                 row.HeaderCell.Value = (row.Index + 1).ToString();
             }
+        }
+
+        private void dgvChiTietBangDiem_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewCell cell = null;
+            foreach (DataGridViewCell selectedCell in dgvChiTietBangDiem.SelectedCells)
+            {
+                cell = selectedCell;
+                break;
+            }
+            if (cell != null)
+            {
+                try
+                {
+                    DataGridViewRow row = cell.OwningRow;
+                    txtMaHS.Text = row.Cells["Mã HS"].Value.ToString().Trim();
+                    txt15.Text = row.Cells["Điểm 15"].Value.ToString().Trim();
+                    txt45.Text = row.Cells["Điểm 45"].Value.ToString().Trim();
+                    idct = row.Cells["Mã CT"].Value.ToString();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+            }
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+            data.update(idct, txt15.Text, txt45.Text);
+            dgvChiTietBangDiem.DataSource = data.GetScore(cbHocKy.Text, cbMonHoc.Text, cbLop.Text).Tables[0];
+            dgvChiTietBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvChiTietBangDiem.Columns["Mã HS"].Visible = false;
+            dgvChiTietBangDiem.Columns["Mã CT"].Visible = false;
+            setRowNumber(dgvChiTietBangDiem);
         }
     }
 }

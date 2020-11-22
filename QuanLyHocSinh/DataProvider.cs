@@ -73,6 +73,12 @@ namespace QuanLyHocSinh
             command.ExecuteNonQuery();
         }
 
+        public void executeNonQuery(string sqlString)
+        {
+            command = new SqlCommand(sqlString, connection);
+            command.ExecuteNonQuery();
+        }
+
         public object executeScalar(string sqlString, List<SqlParameter> sqlParams)
         {
             connection.Open();

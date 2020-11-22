@@ -130,6 +130,7 @@ namespace QuanLyHocSinh
             this.dgvDanhSachHS.Location = new System.Drawing.Point(349, 39);
             this.dgvDanhSachHS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvDanhSachHS.Name = "dgvDanhSachHS";
+            this.dgvDanhSachHS.ReadOnly = true;
             this.dgvDanhSachHS.RowHeadersWidth = 51;
             this.dgvDanhSachHS.RowTemplate.Height = 24;
             this.dgvDanhSachHS.Size = new System.Drawing.Size(987, 610);
@@ -270,6 +271,7 @@ namespace QuanLyHocSinh
             this.txtMaHS.Location = new System.Drawing.Point(11, 47);
             this.txtMaHS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMaHS.Name = "txtMaHS";
+            this.txtMaHS.ReadOnly = true;
             this.txtMaHS.Size = new System.Drawing.Size(304, 22);
             this.txtMaHS.TabIndex = 0;
             // 
