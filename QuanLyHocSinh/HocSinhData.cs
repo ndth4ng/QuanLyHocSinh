@@ -27,7 +27,7 @@ namespace QuanLyHocSinh
 
             if (obj.HasRows)
             {
-                //dataProvider.disconnect();
+                dataProvider.disconnect();
                 return true;
             }
             dataProvider.disconnect();
@@ -40,7 +40,7 @@ namespace QuanLyHocSinh
             {
                 dataProvider.open();
                 string insertCommand = "INSERT INTO HOSOHOCSINH VALUES (@maHS, @tenHS, @email, @gioiTinh, @ngaySinh, @diaChi); " +
-                                       "INSERT INTO TONGKETLOP(MaHS, IDLop) VALUES (@maHS2, (SELECT IDLop FROM LOP WHERE TenLop = @lop));";
+                                       "INSERT INTO TONGKETLOP(MaHS, IDLop, TBHK1, TBHK2) VALUES (@maHS2, (SELECT IDLop FROM LOP WHERE TenLop = @lop), 0, 0);";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
                 sqlParams.Add(new SqlParameter("@tenHS", tenHS));
@@ -108,26 +108,24 @@ namespace QuanLyHocSinh
 
         public void delete(string maHS)
         {
-            try
-            {
+            //try
+            //{
                 dataProvider.open();
-                string deleteCommand = "DELETE FROM TONGKETLOP WHERE MaHS = @maHS " +
-                                       "DELETE FROM CTBANGDIEMMON WHERE MaHS = @maHS3 " +
-                                       "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS2";
+                string deleteCommand = "DELETE FROM CTBANGDIEMMON WHERE MaHS = @maHS; " +
+                                       "DELETE FROM TONGKETLOP WHERE MaHS = @maHS; " +
+                                       "DELETE FROM HOSOHOCSINH WHERE MaHS = @maHS";
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
                 sqlParams.Add(new SqlParameter("@maHS", maHS));
-                sqlParams.Add(new SqlParameter("@maHS2", maHS));
-                sqlParams.Add(new SqlParameter("@maHS3", maHS));
                 dataProvider.executeNonQuery(deleteCommand, sqlParams);          
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message); 
-            }
-            finally
-            {
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception(ex.Message); 
+            //}
+            //finally
+            //{
                 dataProvider.disconnect();
-            }
+            //}
 
             this.UpdateSiSo();
         }
@@ -229,7 +227,7 @@ namespace QuanLyHocSinh
 
         public DataSet GetStudent()
         {
-            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', TenLop as 'Lớp', NgaySinh as 'Ngày sinh', Email, DiaChi as 'Địa chỉ' " +
+            string sqlString = "select HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', TenLop as 'Lớp', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ', TBHK1, TBHK2 " +
                 "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
                 "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop";
             return dataProvider.GetData(sqlString);
@@ -237,7 +235,7 @@ namespace QuanLyHocSinh
 
         public DataSet GetStudentFromClass(string tenLop)
         {
-            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ' " +
+            string sqlString = "select HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh', DiaChi as 'Địa chỉ', TBHK1, TBHK2 " +
                "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
                "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop AND TenLop = '"+tenLop+"'";
             return dataProvider.GetData(sqlString); 
@@ -245,7 +243,7 @@ namespace QuanLyHocSinh
 
         public DataSet GetStudentFromClass()
         {
-            string sqlString = "select HOSO.MaHS as 'Mã học sinh', HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh',TenLop as 'Lớp', DiaChi as 'Địa chỉ' " +
+            string sqlString = "select HoTen as 'Họ tên', case when GioiTinh = 1 then 'Nam' else N'Nữ' end as 'Giới tính', NgaySinh as 'Ngày sinh',TenLop as 'Lớp', DiaChi as 'Địa chỉ', TBHK1, TBHK2 " +
                "from HOSOHOCSINH as HOSO, LOP, TONGKETLOP as TK " +
                "WHERE HOSO.MaHS = TK.MaHS AND LOP.IDLop = TK.IDLop";
             return dataProvider.GetData(sqlString);

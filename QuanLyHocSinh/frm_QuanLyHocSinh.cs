@@ -45,36 +45,7 @@ namespace QuanLyHocSinh
             cbLop.DisplayMember = "TenLop";
             cbLop.ValueMember = "TenLop";
         }
-
-        private void dgvDanhSachHS_SelectionChanged(object sender, EventArgs e)
-        {
-            DataGridViewCell cell = null;
-            foreach (DataGridViewCell selectedCell in dgvDanhSachHS.SelectedCells)
-            {
-                cell = selectedCell;
-                break;
-            }
-            if (cell != null)
-            {
-                try { 
-                    DataGridViewRow row = cell.OwningRow;
-                    txtMaHS.Text = row.Cells["Mã học sinh"].Value.ToString().Trim();
-                    txtTenHS.Text = row.Cells["Họ tên"].Value.ToString().Trim();
-                    if (row.Cells["Giới tính"].Value.ToString() == "Nam")
-                        cbGioiTinh.SelectedItem = "Nam";
-                    else
-                        cbGioiTinh.SelectedItem = "Nữ";
-                    cbLop.SelectedValue = row.Cells["Lớp"].Value;
-                    txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
-                    txtDiaChi.Text = row.Cells["Địa chỉ"].Value.ToString().Trim();
-                    dateNgaySinh.Text = row.Cells["Ngày sinh"].Value.ToString();               
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-            }
-        }
+            
 
         private void btnThem_Click(object sender, EventArgs e)
         {            
@@ -94,8 +65,7 @@ namespace QuanLyHocSinh
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                check = false;
-                
+                check = false;             
             }
             finally
             {
@@ -107,22 +77,53 @@ namespace QuanLyHocSinh
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            //bool check = true;
-            //try
-            //{
+            bool check = true;
+            try
+            {
                 data.update(txtMaHS.Text, txtTenHS.Text, txtEmail.Text, cbGioiTinh.SelectedItem.ToString(), dateNgaySinh.Value.Date, txtDiaChi.Text, cbLop.Text);
-            //}
-            //catch (Exception ex)
-            //{
-                //MessageBox.Show(ex.Message);
-                //check = false;
-            //}
-            //finally
-            //{
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                check = false;
+            }
+            finally
+            {
                 LoadData();
-            //}
-            //if (check)
-                //MessageBox.Show("Cập nhật thông tin học sinh thành công!");
+            }
+            if (check)
+                MessageBox.Show("Cập nhật thông tin học sinh thành công!");
+        }
+
+        private void dgvDanhSachHS_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewCell cell = null;
+            foreach (DataGridViewCell selectedCell in dgvDanhSachHS.SelectedCells)
+            {
+                cell = selectedCell;
+                break;
+            }
+            if (cell != null)
+            {
+                try
+                {
+                    DataGridViewRow row = cell.OwningRow;
+                    txtMaHS.Text = row.Cells["Mã học sinh"].Value.ToString().Trim();
+                    txtTenHS.Text = row.Cells["Họ tên"].Value.ToString().Trim();
+                    if (row.Cells["Giới tính"].Value.ToString() == "Nam")
+                        cbGioiTinh.SelectedItem = "Nam";
+                    else
+                        cbGioiTinh.SelectedItem = "Nữ";
+                    cbLop.SelectedValue = row.Cells["Lớp"].Value;
+                    txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
+                    txtDiaChi.Text = row.Cells["Địa chỉ"].Value.ToString().Trim();
+                    dateNgaySinh.Text = row.Cells["Ngày sinh"].Value.ToString();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+            }
         }
     }
 }

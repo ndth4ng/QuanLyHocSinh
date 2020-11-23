@@ -30,7 +30,7 @@ namespace QuanLyHocSinh
             dgvDanhSachLop.DataSource = hs.GetStudent().Tables[0];
             dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+            //dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
             setRowNumber(dgvDanhSachLop);
         }
         void FillComboBox()
@@ -63,7 +63,7 @@ namespace QuanLyHocSinh
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass().Tables[0];
                 dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+                //dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
                 setRowNumber(dgvDanhSachLop);
                 lbSiSoLop.Text = "Sỉ số: ";
             }
@@ -72,7 +72,7 @@ namespace QuanLyHocSinh
                 dgvDanhSachLop.DataSource = hs.GetStudentFromClass(cbLop.Text).Tables[0];
                 dgvDanhSachLop.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dgvDanhSachLop.Columns[dgvDanhSachLop.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
+                //dgvDanhSachLop.Columns["Mã học sinh"].Visible = false;
                 setRowNumber(dgvDanhSachLop);
                 lbSiSoLop.Text = "Sỉ số: " + hs.Count(cbLop.Text).ToString();
             }

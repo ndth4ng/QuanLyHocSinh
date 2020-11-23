@@ -49,12 +49,6 @@
     <Compile Include="BangDiemData.cs" />
     <Compile Include="BaoCaoData.cs" />
     <Compile Include="DataProvider.cs" />
-    <Compile Include="frm_BangDiem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_BangDiem.Designer.cs">
-      <DependentUpon>frm_BangDiem.cs</DependentUpon>
-    </Compile>
     <Compile Include="frm_BaoCaoTongKetHocKy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,9 +126,6 @@
     <Compile Include="MonHocData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frm_BangDiem.resx">
-      <DependentUpon>frm_BangDiem.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frm_BaoCaoTongKetHocKy.resx">
       <DependentUpon>frm_BaoCaoTongKetHocKy.cs</DependentUpon>
     </EmbeddedResource>

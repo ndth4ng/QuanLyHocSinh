@@ -136,7 +136,6 @@ namespace QuanLyHocSinh
 
                     List<SqlParameter> sqlParams = new List<SqlParameter>();
                     sqlParams.Add(new SqlParameter("@sld", row[3]));
-                    sqlParams.Add(new SqlParameter("@sld", row[3]));
                     sqlParams.Add(new SqlParameter("@id", row[0]));
                     sqlParams.Add(new SqlParameter("@maLop", row[1]));
                     dataProvider.executeNonQuery(insertCommand, sqlParams);

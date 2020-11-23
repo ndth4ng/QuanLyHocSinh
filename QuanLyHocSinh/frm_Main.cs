@@ -17,41 +17,6 @@ namespace QuanLyHocSinh
             InitializeComponent();
         }
 
-        private void cậpNhậtLớpHọcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void cậpNhậtMônHọcToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void bảngĐiểmToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void tổngKếtMônToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void báoCáoTổngKếtHọcKỳToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void hồSơHọcSinhToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void danhSáchLớpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void tracuuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frm_TraCuu traCuu = new frm_TraCuu();
@@ -63,13 +28,6 @@ namespace QuanLyHocSinh
         private void frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void thoátToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DialogResult dlg = MessageBox.Show("Ban co that su muon thoat?", "Thoat?", MessageBoxButtons.YesNo);
-            if (dlg == DialogResult.Yes)
-                Application.Exit();
         }
 
         private void btnHS_Click(object sender, EventArgs e)
@@ -126,6 +84,12 @@ namespace QuanLyHocSinh
             this.Hide();
             bcHocKy.ShowDialog();
             this.Show();
+        }
+        private void thoátToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dlg = MessageBox.Show("Ban co that su muon thoat?", "Thoat?", MessageBoxButtons.YesNo);
+            if (dlg == DialogResult.Yes)
+                Application.Exit();
         }
     }
 }
